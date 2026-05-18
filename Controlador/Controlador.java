@@ -12,7 +12,7 @@ Comunicación inmediata: Todo cambio o incorporación debe notificarse al equipo
 
 Responsabilidad: Cada integrante es responsable de su código y del impacto que este genere en el trabajo de los demás.
 
-Mantengamos una comunicación fluida para evitar conflictos en la integración del sistema.
+Mantengamos una comunicación fluida para evitar conflictos en la integración del sistema....
 
 */
 
