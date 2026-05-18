@@ -1,5 +1,7 @@
 /*
-
+********************
+RESPONSABLE: SHARON
+********************
 ⚠️ AVISO⚠️
 
 Estimado equipo, las estructuras base del proyecto ya están definidas en código.
