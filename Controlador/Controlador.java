@@ -29,7 +29,9 @@ public class Controlador {
 
     public void iniciarPartida()
     {
-        
+        //instanciar controladores de movimiento
+        //instanciar pantallas
+        //instanciar timers de actualizacion de pantalla
     };
     public void actualizarJuego()
     {
