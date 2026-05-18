@@ -14,6 +14,8 @@ Responsabilidad: Cada integrante es responsable de su código y del impacto que 
 
 Mantengamos una comunicación fluida para evitar conflictos en la integración del sistema.
 
+************************************RECUERDEN USAR SUS BRANCHES PARA LUEGO MERGEAR*********************
+
 */
 
 package submarino;

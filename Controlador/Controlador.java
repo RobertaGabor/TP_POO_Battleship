@@ -14,6 +14,8 @@ Responsabilidad: Cada integrante es responsable de su código y del impacto que 
 
 Mantengamos una comunicación fluida para evitar conflictos en la integración del sistema.
 
+************************************RECUERDEN USAR SUS BRANCHES PARA LUEGO MERGEAR*********************
+
 */
 
 package controlador;
@@ -29,7 +31,9 @@ public class Controlador {
 
     public void iniciarPartida()
     {
-        
+        //instanciar controladores de movimiento
+        //instanciar pantallas
+        //instanciar timers de actualizacion de pantalla
     };
     public void actualizarJuego()
     {
