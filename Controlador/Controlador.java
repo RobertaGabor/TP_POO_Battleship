@@ -22,9 +22,14 @@ public class Controlador {
     
     public Juego juego;
 
+    public static Controlar()
+    {
+        juego=new Juego();
+    };
+
     public void iniciarPartida()
     {
-
+        
     };
     public void actualizarJuego()
     {

@@ -16,7 +16,7 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 */
 
-package subamrino;
+package submarino;
 
 public class Submarino {
     
