@@ -28,6 +28,11 @@ public class Carga {
     private float posY;
     private float profundidadDetonacion;
     private float velocidadCaida;
+    
+    public Carga(float velocidad)
+    {
+    	this.velocidadCaida=velocidad;
+    }
 
     public void caer()
     {
