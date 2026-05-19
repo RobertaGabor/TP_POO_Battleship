@@ -35,16 +35,14 @@ public class Juego {
     private List<Carga> cargasActivas;
     private int barcosPendientes;
     private int nivelActual;
-    private float velocidadBarcos;
-    private float velocidadCargas;
+    private float velocidadMovimiento;
     private boolean enPartida;
     
     public Juego() {
         this.submarino = new Submarino(100.0f, 300.0f); 
         this.barcosActivos = new ArrayList<>();
         this.cargasActivas = new ArrayList<>();
-        this.velocidadBarcos = (float) 10.0; // Velocidad base inicial
-        this.velocidadCargas = (float) 5.0;  // Velocidad base inicial
+        this.velocidadMovimiento = (float) 10.0; // Velocidad base inicial
         this.nivelActual = 1;
         this.barcosPendientes = 12; // Los barcos están organizados en series de 12 por nivel
         this.enPartida = false;
@@ -100,7 +98,7 @@ public class Juego {
     public void verificarGeneracionBarco(int anchoPantalla)
     {
     	if (barcosActivos.size() < 3 && barcosPendientes > 0 && hayEspacioLibre(anchoPantalla)) {
-            Barco nuevoBarco = new Barco(velocidadBarcos);
+            Barco nuevoBarco = new Barco(velocidadMovimiento);
             agregarBarco(nuevoBarco);
         }
     };
@@ -167,8 +165,7 @@ public class Juego {
         this.submarino.sumarPuntos(200); // 200 puntos POR NVIEL
         
         // Aumentamos dific.
-        this.velocidadBarcos *= (float)1.20; // 20% extra
-        this.velocidadCargas *= (float)1.20; 
+        this.velocidadMovimiento *= (float)1.20; // 20% extra
         
         // Reseteamos los barcos para la nueva ola
         this.barcosPendientes = 12;
