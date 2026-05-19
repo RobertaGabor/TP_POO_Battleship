@@ -1,4 +1,4 @@
-/*
+ /*
 ********************
 RESPONSABLE: SHARON
 ********************
@@ -20,7 +20,7 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 */
 
-    package submarino;
+package submarino;
 
 public class Submarino {
 
@@ -108,5 +108,13 @@ public class Submarino {
         }
 
     };
+    public float getPosX()
+    {
+    	return this.posX;
+    };
+    public float getPosY()
+    {
+    	return this.posY;
+    }
 
 }

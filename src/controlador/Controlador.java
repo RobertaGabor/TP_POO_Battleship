@@ -1,8 +1,7 @@
 /*
 ********************
-RESPONSABLE: BRUNO
+RESPONSABLE: -
 ********************
-
 ⚠️ AVISO⚠️
 
 Estimado equipo, las estructuras base del proyecto ya están definidas en código.
@@ -21,38 +20,36 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 */
 
+package controlador;
 
-package barco;
+import juego.Juego;
 
-public class Barco {
+public class Controlador {
     
-    private float posX;
-    private float posY;
-    private float velocidad;
-    private int direccion;
-    private float ultimaPosicionLanzamiento;
-    private List<Carga> cargasDisponibles;  
+    public Juego juego;
 
-    public void avanzar()
+    public Controlador()
+    {
+        juego= new Juego();
+    };
+
+    public void iniciarPartida()
+    {
+        //instanciar controladores de movimiento
+        //instanciar pantallas
+        //instanciar timers de actualizacion de pantalla
+    };
+    public void actualizarJuego()
     {
 
     };
-    public boolean verificarLimites(int anchoPantalla)
+    public int obtenerAnchoPantalla()
+    {
+    	return 1;
+    };
+    public void procesarEntrada()
     {
 
     };
-    public boolean verificarLanzamientoCarga()
-    {
-
-    };
-    public void agregarCarga(Carga carga)
-    {
-
-    };
-    public Carga soltarCarga()
-    {
-
-    };
-
 
 }

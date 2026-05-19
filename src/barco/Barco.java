@@ -1,7 +1,8 @@
 /*
 ********************
-RESPONSABLE: ROBY
+RESPONSABLE: BRUNO
 ********************
+
 ⚠️ AVISO⚠️
 
 Estimado equipo, las estructuras base del proyecto ya están definidas en código.
@@ -20,57 +21,51 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 */
 
-package juego;
 
-public interface Juego {
+package barco;
+
+import java.util.List;
+
+import carga.Carga;
+
+public class Barco {
     
-    private Submarino submarino;
-    private List<Barco> barcosActivos;
-    private List<Carga> cargasActivas;
-    private int barcosPendientes;
-    private int nivelActual;
-    private float velocidadBarcos;
-    private float velocidadCargas;
+    private float posX;
+    private float posY;
+    private float velocidad;
+    private int direccion;
+    private float ultimaPosicionLanzamiento;
+    private List<Carga> cargasDisponibles;  
+    
+    public Barco(float velocidad)
+    {
+    	this.velocidad=velocidad;
+    }
 
-    public void iniciarPartida()
+    public void avanzar()
     {
 
     };
-    public void actualizarJuego(int anchoPantalla)
+    public boolean verificarLimites(int anchoPantalla)
     {
-
+    	return true;
     };
-    public void verificarGeneracionBarco()
+    public boolean verificarLanzamientoCarga()
     {
-
-    };
-    public void agregarBarco(Barco barco)
-    {
-
-    };
-    public void eliminarBarco(Barco barco)
-    {
-
+    	return true;
     };
     public void agregarCarga(Carga carga)
     {
 
     };
-    public void eliminarCarga(Carga carga)
+    public Carga soltarCarga()
     {
+    	return new Carga();
+    };
+    public float getPosX()
+    {
+    	return this.posX;
+    }
 
-    };
-    public void procesarExplosion(Carga carga)
-    {
-
-    };
-    public void verificarFinNivel()
-    {
-
-    };
-    public void incrementarNivel()
-    {
-        
-    };
 
 }

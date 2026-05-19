@@ -1,6 +1,6 @@
 /*
 ********************
-RESPONSABLE: -
+RESPONSABLE: COTY
 ********************
 ⚠️ AVISO⚠️
 
@@ -20,34 +20,30 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 */
 
-package controlador;
+package carga;
 
-public class Controlador {
+public class Carga {
     
-    public Juego juego;
+    private float posX;
+    private float posY;
+    private float profundidadDetonacion;
+    private float velocidadCaida;
 
-    public static Controlar()
-    {
-        juego=new Juego();
-    };
-
-    public void iniciarPartida()
-    {
-        //instanciar controladores de movimiento
-        //instanciar pantallas
-        //instanciar timers de actualizacion de pantalla
-    };
-    public void actualizarJuego()
+    public void caer()
     {
 
     };
-    public int obtenerAnchoPantalla()
+    public boolean verificarDetonacion()
     {
-
+    	return true;
     };
-    public void procesarEntrada()
+    public float getPosX()
     {
-
+    	return this.posX;
+    };
+    public float getPosY()
+    {
+    	return this.posY;
     };
 
 }
