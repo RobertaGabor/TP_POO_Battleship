@@ -83,7 +83,8 @@ public class Barco {
     public Carga soltarCarga()
     {
 
-    	return new Carga(velocidad);
+
+    	return new Carga(velocidad, posX, posY);
     };
     
     public float getPosX()

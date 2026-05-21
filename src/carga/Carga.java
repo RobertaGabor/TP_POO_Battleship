@@ -19,8 +19,8 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 ************************************RECUERDEN USAR SUS BRANCHES PARA LUEGO MERGEAR*********************
 
 */
-
 package carga;
+import java.util.Random;
 
 public class Carga {
     
@@ -28,20 +28,34 @@ public class Carga {
     private float posY;
     private float profundidadDetonacion;
     private float velocidadCaida;
+    private static final float LIMITE_SUPERIOR_Y = 300.0f;
+    private static final float LIMITE_INFERIOR_Y = 800.0f;
+    private boolean exploto = false;
     
-    public Carga(float velocidad)
+    public Carga(float velocidad, float posX, float posY)
     {
+        this.posX = posX;
+        this.posY = posY;
     	this.velocidadCaida=velocidad;
     }
 
     public void caer()
     {
+        Random rand = new Random();
+       if(posY < LIMITE_INFERIOR_Y && posY >= LIMITE_SUPERIOR_Y ){
+           posY += velocidadCaida;
+       }
+       else
+       {
+           posY = LIMITE_INFERIOR_Y + rand.nextFloat() * LIMITE_SUPERIOR_Y;
+           exploto = true;
+       }
 
     };
-    public boolean verificarDetonacion()
-    {
-    	return true;
+    public boolean verificarDetonacion(){
+        return exploto;
     };
+    //Getters
     public float getPosX()
     {
     	return this.posX;
@@ -50,5 +64,8 @@ public class Carga {
     {
     	return this.posY;
     };
+
+
+
 
 }
