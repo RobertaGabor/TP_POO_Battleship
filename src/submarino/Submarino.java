@@ -96,6 +96,7 @@ public class Submarino {
         if (puntaje >= puntosParaSiguienteVidaExtra) {
             evaluarVidaExtra();
         }
+        System.out.println("puntos "+puntos);
     };
     public void evaluarVidaExtra()
     {
@@ -103,7 +104,7 @@ public class Submarino {
             vidas++;
             //Guardo el nuevo valor de los puntos necesarios para la próxima vida extra
             puntosParaSiguienteVidaExtra += OBJETIVO_PUNTOS_VIDA_EXTRA; // Incremento el objetivo para la próxima vida extra
-            System.out.println("¡Vida extra obtenida!");
+            System.out.println("¡Vida extra obtenida! "+vida);
 
         }
 

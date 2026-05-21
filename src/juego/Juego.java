@@ -70,11 +70,13 @@ public class Juego {
             // Si el barco ya se fue de pantalla, lo eliminamos usando el ITERADOR
             if (!barcoActual.verificarLimites(anchoPantalla)) {
                 itBarcos.remove(); 
+                System.out.println("EL BARCO SE PASO YA SE FUE");
             } else {
                 // Solo revisamos si lanza carga si el barco sigue existiendo
                 if(barcoActual.verificarLanzamientoCarga(anchoPantalla)) {
                     Carga soltada = barcoActual.soltarCarga();
                     agregarCarga(soltada); 
+                    System.out.println("EL BARCO SOLTO LA CARGA");
                 }
             }
         }
@@ -90,6 +92,7 @@ public class Juego {
             // Si la carga detona, procesamos y eliminamos usando el ITERADOR
             if (cargaActual.verificarDetonacion()) {
                 procesarExplosion(cargaActual);
+                System.out.println("LA CARGA YA EXPLOTO");
                 itCargas.remove(); 
             }
         }       
@@ -144,7 +147,7 @@ public class Juego {
         float diferenciaX = carga.getPosX() - submarino.getPosX(); 
         float diferenciaY = carga.getPosY() - submarino.getPosY(); 
         double distancia = Math.sqrt((diferenciaX * diferenciaX) + (diferenciaY * diferenciaY)); //calculamos la diagonal de explosion con pitagoras
-
+        System.out.println("EL DAÑO FUE DE "+distancia);
         // TIPO DE SAÑO SEGUN DISTANCIA
         if (distancia > 100) {
             submarino.sumarPuntos(30); // Explota a más de 100 metros de distancia: El jugador obtiene 30 puntos y 0% daño.
@@ -161,6 +164,9 @@ public class Juego {
     {
     	if (barcosPendientes == 0 && barcosActivos.isEmpty() && cargasActivas.isEmpty()) {
             incrementarNivel();
+            System.out.println("nivel "+nivelActual);
+            System.out.println("velocidad "+velocidadMovimiento);
+
         }
     };
     public void incrementarNivel()
