@@ -47,7 +47,7 @@ public class Carga {
        }
        else
        {
-           posY = LIMITE_INFERIOR_Y + rand.nextFloat() * LIMITE_SUPERIOR_Y;
+           posY = LIMITE_INFERIOR_Y + rand.nextFloat() * (LIMITE_SUPERIOR_Y - LIMITE_INFERIOR_Y);
            exploto = true;
        }
 
