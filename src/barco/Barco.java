@@ -57,7 +57,7 @@ public class Barco {
     public void avanzar()
     {
         posX += velocidad * direccion;
-
+        System.out.println(posX);
 
     };
 

@@ -69,9 +69,7 @@ public class Controlador {
     };
     public int obtenerAnchoPantalla()
     {
-
-
-    	return 1;
+    	return 1024;
     };
     public void procesarEntrada()
     {

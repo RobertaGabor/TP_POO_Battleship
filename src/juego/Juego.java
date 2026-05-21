@@ -25,6 +25,7 @@ package juego;
 import barco.Barco;
 import carga.Carga;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import submarino.Submarino;
 
@@ -56,43 +57,46 @@ public class Juego {
 
     public void actualizarJuego(int anchoPantalla)
     {
-    	verificarGeneracionBarco(anchoPantalla);
-    	
-    	//SECCION BARCO: reviso barcos que hayan entrado a la pantalla
-    	for (Barco barcoActual : barcosActivos) 
-    	{
-    		//como se ejecuta muy rapido este va a procesar todo siempre, y va a mocer el barco
-    		barcoActual.avanzar();
-			
-			//si el barco ya se fue de pantalla eliminamos de variable
-			if (!barcoActual.verificarLimites(anchoPantalla)) {
-				barcosActivos.remove(barcoActual);
+        verificarGeneracionBarco(anchoPantalla);
+        
+        // SECCION BARCO: reviso barcos que hayan entrado a la pantalla
+        Iterator<Barco> itBarcos = barcosActivos.iterator();
+        while (itBarcos.hasNext()) {
+            Barco barcoActual = itBarcos.next();
+            
+            // Avanza el barco
+            barcoActual.avanzar();
+            
+            // Si el barco ya se fue de pantalla, lo eliminamos usando el ITERADOR
+            if (!barcoActual.verificarLimites(anchoPantalla)) {
+                itBarcos.remove(); 
+            } else {
+                // Solo revisamos si lanza carga si el barco sigue existiendo
+                if(barcoActual.verificarLanzamientoCarga(anchoPantalla)) {
+                    Carga soltada = barcoActual.soltarCarga();
+                    agregarCarga(soltada); 
+                }
             }
-			
-			//revisamos si el abco ya esta en posicion de tirar las cargas 
-			if(barcoActual.verificarLanzamientoCarga(anchoPantalla))
-			{
-				Carga soltada=barcoActual.soltarCarga();
-				agregarCarga(soltada); //la agrego a cargas que estan cayendo
-			};
-		}
-    	
-    	//SECCION CARGAS: reviso cargas que esten cayendo
-    	for (Carga cargaActual : cargasActivas) 
-    	{
-    		//mueve carga hacia el fondo
-    		cargaActual.caer();
-			
-			//si el barco ya se fue de pantalla eliminamos de variable
-			if (cargaActual.verificarDetonacion()) {
-				procesarExplosion(cargaActual);
-				cargasActivas.remove(cargaActual);
+        }
+        
+        // SECCION CARGAS: reviso cargas que esten cayendo
+        Iterator<Carga> itCargas = cargasActivas.iterator();
+        while (itCargas.hasNext()) {
+            Carga cargaActual = itCargas.next();
+            
+            // Mueve carga hacia el fondo
+            cargaActual.caer();
+            
+            // Si la carga detona, procesamos y eliminamos usando el ITERADOR
+            if (cargaActual.verificarDetonacion()) {
+                procesarExplosion(cargaActual);
+                itCargas.remove(); 
             }
-			
-			verificarFinNivel(); //check si quedan barcos etc para ver si subir y reiniciar
-		}   	
-    	
-    };
+        }       
+        
+        // Check si quedan barcos etc para ver si subir y reiniciar
+        verificarFinNivel(); 
+    }
     
     
     public void verificarGeneracionBarco(int anchoPantalla)
