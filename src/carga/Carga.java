@@ -38,6 +38,7 @@ public class Carga {
         this.posX = posX;
         this.posY = posY;
     	this.velocidadCaida=velocidad;
+    	this.rand=new Random();
         profundidadDetonacion = LIMITE_INFERIOR_Y + rand.nextFloat() * (LIMITE_SUPERIOR_Y - LIMITE_INFERIOR_Y);
     }
 
@@ -47,7 +48,7 @@ public class Carga {
 
     };
     public boolean verificarDetonacion(){
-        if(posY == profundidadDetonacion){exploto = true;}
+        if(posY >= profundidadDetonacion){exploto = true;}
         return exploto;
     };
     //Getters

@@ -53,6 +53,7 @@ public class Juego {
         this.barcosActivos.clear();
         this.cargasActivas.clear();
         this.enPartida = true;
+        submarino.test();
     }
 
     public void actualizarJuego(int anchoPantalla)
