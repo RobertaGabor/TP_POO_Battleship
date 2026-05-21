@@ -42,14 +42,18 @@ public class Carga {
     public void caer()
     {
         Random rand = new Random();
-       if(posY < LIMITE_INFERIOR_Y && posY >= LIMITE_SUPERIOR_Y ){
-           posY += velocidadCaida;
-       }
-       else
-       {
-           posY = LIMITE_INFERIOR_Y + rand.nextFloat() * (LIMITE_SUPERIOR_Y - LIMITE_INFERIOR_Y);
-           exploto = true;
-       }
+        //Mientras la carga no entre en el rango del submarino, sigue avanzando
+        while (exploto == false){
+            if(posY < LIMITE_INFERIOR_Y && posY >= LIMITE_SUPERIOR_Y ){
+                posY += velocidadCaida;
+            }
+            else
+            {
+                posY = LIMITE_INFERIOR_Y + rand.nextFloat() * (LIMITE_SUPERIOR_Y - LIMITE_INFERIOR_Y);
+                exploto = true;
+            }
+        }
+
 
     };
     public boolean verificarDetonacion(){
