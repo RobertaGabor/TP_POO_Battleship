@@ -24,17 +24,41 @@ package controlador;
 
 import juego.Juego;
 
+
 public class Controlador {
-    
     public Juego juego;
+    private int anchoPantalla;
+
 
     public Controlador()
     {
-        juego= new Juego();
+        //juego= new Juego();
+        this.juego = new Juego();
+        this.anchoPantalla = 1024; // El tamaño que decidan para la pantalla
     };
 
     public void iniciarPartida()
     {
+        juego.iniciarPartida();
+        // El bucle principal del juego
+        while (juego.isEnPartida()) {
+
+            procesarEntrada(); // Acá leeríamos el teclado del jugador
+
+            juego.actualizarJuego(anchoPantalla);
+
+            // Pausa de milisegundos para que el juego no corra a la velocidad de la luz
+
+            try {
+                Thread.sleep(50); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+
+            }
+        }
+
+        System.out.println("Fin del juego.");
+
         //instanciar controladores de movimiento
         //instanciar pantallas
         //instanciar timers de actualizacion de pantalla
@@ -45,6 +69,8 @@ public class Controlador {
     };
     public int obtenerAnchoPantalla()
     {
+
+
     	return 1;
     };
     public void procesarEntrada()
