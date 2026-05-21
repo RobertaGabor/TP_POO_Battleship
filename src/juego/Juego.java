@@ -22,10 +22,10 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 package juego;
 
-import java.util.ArrayList;
-import java.util.List;
 import barco.Barco;
 import carga.Carga;
+import java.util.ArrayList;
+import java.util.List;
 import submarino.Submarino;
 
 public class Juego {
@@ -70,7 +70,7 @@ public class Juego {
             }
 			
 			//revisamos si el abco ya esta en posicion de tirar las cargas 
-			if(barcoActual.verificarLanzamientoCarga())
+			if(barcoActual.verificarLanzamientoCarga(anchoPantalla))
 			{
 				Carga soltada=barcoActual.soltarCarga();
 				agregarCarga(soltada); //la agrego a cargas que estan cayendo
@@ -98,7 +98,7 @@ public class Juego {
     public void verificarGeneracionBarco(int anchoPantalla)
     {
     	if (barcosActivos.size() < 3 && barcosPendientes > 0 && hayEspacioLibre(anchoPantalla)) {
-            Barco nuevoBarco = new Barco(velocidadMovimiento);
+            Barco nuevoBarco = new Barco(velocidadMovimiento, anchoPantalla);
             agregarBarco(nuevoBarco);
         }
     };
