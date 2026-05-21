@@ -28,7 +28,7 @@ import juego.Juego;
 public class Controlador {
     public Juego juego;
     private int anchoPantalla;
-
+    private static Controlador instance;
 
     public Controlador()
     {
@@ -74,6 +74,18 @@ public class Controlador {
     public void procesarEntrada()
     {
 
+
+
     };
+
+    public static Controlador getInstance() {
+		//El metodo getInstance es el encargado de devolver la instancia del controlador,
+		// si la instancia no existe, se crea una nueva instancia del controlador,
+		// si la instancia ya existe, se devuelve la instancia existente
+
+		if(instance == null)
+			instance = new Controlador();
+		return instance;
+	}
 
 }
