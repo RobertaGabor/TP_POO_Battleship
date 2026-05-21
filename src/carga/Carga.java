@@ -31,32 +31,23 @@ public class Carga {
     private static final float LIMITE_SUPERIOR_Y = 300.0f;
     private static final float LIMITE_INFERIOR_Y = 800.0f;
     private boolean exploto = false;
-    
-    public Carga(float velocidad, float posX, float posY)
-    {
+    private Random rand;
+
+    public Carga(float velocidad, float posX, float posY) {
+
         this.posX = posX;
         this.posY = posY;
     	this.velocidadCaida=velocidad;
+        profundidadDetonacion = LIMITE_INFERIOR_Y + rand.nextFloat() * (LIMITE_SUPERIOR_Y - LIMITE_INFERIOR_Y);
     }
 
     public void caer()
     {
-        Random rand = new Random();
-        //Mientras la carga no entre en el rango del submarino, sigue avanzando
-        while (exploto == false){
-            if(posY < LIMITE_INFERIOR_Y && posY >= LIMITE_SUPERIOR_Y ){
-                posY += velocidadCaida;
-            }
-            else
-            {
-                posY = LIMITE_INFERIOR_Y + rand.nextFloat() * (LIMITE_SUPERIOR_Y - LIMITE_INFERIOR_Y);
-                exploto = true;
-            }
-        }
-
+        posY += velocidadCaida;
 
     };
     public boolean verificarDetonacion(){
+        if(posY == profundidadDetonacion){exploto = true;}
         return exploto;
     };
     //Getters
