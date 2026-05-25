@@ -74,6 +74,7 @@ public class Submarino {
     {
         vida -= cantidad;
         if (vida <= 0) {
+            vida = 0; 
             perderVida();
         }
 
@@ -84,7 +85,10 @@ public class Submarino {
         vidas--;
         if (vidas > 0) {
             vida = VIDA_MAXIMA; // Reinicio la vida al perder una de las vidas
+            System.out.println("¡Has perdido una vida! Vidas restantes: " + vidas);
         } else {
+            vida = 0;
+            vidas = 0;
             System.out.println("GAME OVER");
         }
     };
