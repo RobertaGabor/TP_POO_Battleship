@@ -69,7 +69,7 @@ public class Barco {
         }
 
         return true;
-    };
+    }
     public boolean verificarLanzamientoCarga(int anchoPantalla)
     {
         if(verificarLimites(anchoPantalla)) {
@@ -78,7 +78,7 @@ public class Barco {
         return random.nextInt(100) < 5;
     }
     	return  false;       
-    };
+    }
    
     public Carga soltarCarga()
     {
