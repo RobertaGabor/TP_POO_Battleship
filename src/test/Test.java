@@ -1,10 +1,9 @@
 package test;
 
-import controlador.Controlador;
+import gui.Ventana;
 
 public class Test {
     public static void main(String[] args) {
-        Controlador controlador = new Controlador();
-        controlador.iniciarPartida();
+        Ventana ventana = new Ventana();
     }
 }

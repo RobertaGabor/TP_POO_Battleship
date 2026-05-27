@@ -122,10 +122,6 @@ public class Submarino {
     	return this.posY;
     }
     
-    public void test()
-    {
-    	posX=30;
-    	posY=550;
-    }
+    
 
 }

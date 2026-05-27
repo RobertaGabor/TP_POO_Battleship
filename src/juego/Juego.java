@@ -55,7 +55,7 @@ public class Juego {
         this.barcosActivos.clear();
         this.cargasActivas.clear();
         this.enPartida = true;
-        submarino.test();
+        
     }
 
     public void actualizarJuego(int anchoPantalla)
@@ -208,5 +208,19 @@ public class Juego {
         pausado = false;
         System.out.println("Juego reanudado.");
     }
+    //
+    public List<Barco> getBarcosActivos()
+    {
+    return barcosActivos;
+    }
+    public List<Carga> getCargasActivas()
+    {
+    return cargasActivas;
+    }
+    public boolean isPausado()
+    {
+    return pausado;
+    }
+
 
 }
