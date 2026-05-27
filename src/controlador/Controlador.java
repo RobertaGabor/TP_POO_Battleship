@@ -29,6 +29,7 @@ public class Controlador {
     public Juego juego;
     private int anchoPantalla;
     private static Controlador instance;
+    
 
     public Controlador()
     {
@@ -79,7 +80,15 @@ public class Controlador {
 
 
     };
-    
+     public void pausarJuego()
+     {
+        juego.pausarJuego();
+    }
+
+    public void reanudarJuego()
+    {
+        juego.reanudarJuego();
+    }
 
     public static Controlador getInstance() {
 		//El metodo getInstance es el encargado de devolver la instancia del controlador,

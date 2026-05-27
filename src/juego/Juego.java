@@ -73,7 +73,7 @@ public class Juego {
             
             // Avanza el barco
             barcoActual.avanzar();
-            
+        
             // Si el barco ya se fue de pantalla, lo eliminamos usando el ITERADOR
             if (!barcoActual.verificarLimites(anchoPantalla)) {
                 itBarcos.remove(); 
