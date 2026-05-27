@@ -38,7 +38,8 @@ public class Juego {
     private int nivelActual;
     private float velocidadMovimiento;
     private boolean enPartida;
-    
+    private boolean pausado;
+
     public Juego() {
         this.submarino = new Submarino(100.0f, 300.0f); 
         this.barcosActivos = new ArrayList<>();
@@ -47,6 +48,7 @@ public class Juego {
         this.nivelActual = 1;
         this.barcosPendientes = 12; // Los barcos están organizados en series de 12 por nivel
         this.enPartida = false;
+        this.pausado = false;
     }
     
     public void iniciarPartida() {
@@ -58,6 +60,10 @@ public class Juego {
 
     public void actualizarJuego(int anchoPantalla)
     {
+        if (pausado) {
+            System.out.println("El juego esta pausado.");
+            return;
+        }
         verificarGeneracionBarco(anchoPantalla);
         
         // SECCION BARCO: reviso barcos que hayan entrado a la pantalla
@@ -191,6 +197,16 @@ public class Juego {
     public Submarino getSubmarino()
     {
     return submarino;
+    }
+    public void pausarJuego()
+    {
+    pausado = true;
+    System.out.println("Juego pausado.");
+    }
+    public void reanudarJuego()
+    {
+        pausado = false;
+        System.out.println("Juego reanudado.");
     }
 
 }
