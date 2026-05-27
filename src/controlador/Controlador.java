@@ -65,11 +65,13 @@ public class Controlador {
     };
     public void actualizarJuego()
     {
+        // Este método se encarga de actualizar el estado del juego.
+    	juego.actualizarJuego(anchoPantalla);
 
     };
     public int obtenerAnchoPantalla()
     {
-    	return 1024;
+    	return anchoPantalla;
     };
     public void procesarEntrada()
     {
@@ -77,6 +79,7 @@ public class Controlador {
 
 
     };
+    
 
     public static Controlador getInstance() {
 		//El metodo getInstance es el encargado de devolver la instancia del controlador,
@@ -87,5 +90,31 @@ public class Controlador {
 			instance = new Controlador();
 		return instance;
 	}
+    public Juego getJuego() {
+        return juego;
+    }
+    // Agregar métodos para mover el submarino
+    public void moverIzquierda()
+    {
+        juego.getSubmarino().moverX(-10);
+    }
+
+    public void moverDerecha()
+    {
+        juego.getSubmarino().moverX(10);
+    }
+
+    public void moverArriba()
+    {
+        juego.getSubmarino().moverY(-10);
+    }
+
+    public void moverAbajo()
+    {
+        juego.getSubmarino().moverY(10);
+    }
+    
+
+    
 
 }

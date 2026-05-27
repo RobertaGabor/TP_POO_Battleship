@@ -187,5 +187,10 @@ public class Juego {
     {
         return this.enPartida;
     }
+    // utilizo este getSubmarino para poder acceder al submarino desde el controlador y mostrar su estado en pantalla
+    public Submarino getSubmarino()
+    {
+    return submarino;
+    }
 
 }
