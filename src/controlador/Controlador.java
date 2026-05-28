@@ -42,28 +42,14 @@ public class Controlador {
     {
         juego.iniciarPartida();
         // El bucle principal del juego
-        while (juego.isEnPartida()) {
-
-            procesarEntrada(); // Acá leeríamos el teclado del jugador
-
-            juego.actualizarJuego(anchoPantalla);
-
-            // Pausa de milisegundos para que el juego no corra a la velocidad de la luz
-
-            try {
-                Thread.sleep(50); 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-
-            }
+       
         }
 
-        System.out.println("Fin del juego.");
 
         //instanciar controladores de movimiento
         //instanciar pantallas
         //instanciar timers de actualizacion de pantalla
-    };
+    
     public void actualizarJuego()
     {
         // Este método se encarga de actualizar el estado del juego.

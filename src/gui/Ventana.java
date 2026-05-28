@@ -147,7 +147,7 @@ public class Ventana extends JFrame{
 
          labelVidas = new JLabel("Vidas: 5");
          labelVidas.setBounds(20, 90, 200, 30);
-         labelVidas.setForeground(Color.WHITE);
+         labelVidas.setForeground(new Color(230, 110, 50));
          add(labelVidas);
 
          labelNivel = new JLabel("Nivel: 1");

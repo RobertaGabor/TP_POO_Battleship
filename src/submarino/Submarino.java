@@ -132,7 +132,7 @@ public class Submarino {
     public int getPuntaje()
     {
     	return this.puntaje;
-    };
+    }; 
     public boolean estaMuerto()
     {
         return vidas <= 0;
