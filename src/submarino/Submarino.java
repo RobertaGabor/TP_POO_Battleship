@@ -31,7 +31,7 @@ public class Submarino {
     private int puntaje;
     // Constantes para el submarino
     private static final float VIDA_MAXIMA = 100.0f;
-    private static final int VIDAS_INICIALES = 5;
+    private static final int VIDAS_INICIALES = 2;
     private static final int PUNTAJE_INICIAL = 0;
     private int puntosParaSiguienteVidaExtra;
     // Límites de movimiento del submarino
