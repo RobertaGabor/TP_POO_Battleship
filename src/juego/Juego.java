@@ -221,6 +221,11 @@ public class Juego {
     {
     return pausado;
     }
+    public int getNivelActual()
+    {
+        return nivelActual;
+    }
+
 
 
 }

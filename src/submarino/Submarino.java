@@ -121,6 +121,22 @@ public class Submarino {
     {
     	return this.posY;
     }
+    public float getVida()
+    {
+    	return this.vida;
+    };
+    public int getVidas()
+    {
+    	return this.vidas;
+    };
+    public int getPuntaje()
+    {
+    	return this.puntaje;
+    };
+    public boolean estaMuerto()
+    {
+        return vidas <= 0;
+    };
     
     
 

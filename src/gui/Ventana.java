@@ -1,23 +1,19 @@
 package gui;
+import barco.Barco;
+import carga.Carga;
+import controlador.Controlador;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
-
-import barco.Barco;
-import carga.Carga;
-import controlador.Controlador;
-import java.sql.Time;
 
 public class Ventana extends JFrame{
     private Controlador controlador;
@@ -26,6 +22,11 @@ public class Ventana extends JFrame{
     private Timer timer;
     private List<JLabel> labelsBarcos;
     private List<JLabel> labelsCargas;
+    private JProgressBar barraVida;
+    private JLabel labelPuntos;
+    private JLabel labelVidas;
+    private JLabel labelNivel;
+    private int nivelAnterior;
 
     public Ventana()
     {
@@ -121,18 +122,40 @@ public class Ventana extends JFrame{
     }
 
     private void inicializar() {
+        nivelAnterior = 1;
         labelsBarcos = new ArrayList<>();
         labelsCargas = new ArrayList<>();
 
 
-       submarino = new JLabel("Submarino");
+       submarino = new JLabel("");
        submarino.setBounds(100, 300, 50, 30);
        // Configura el fondo del submarino para que sea visible
        submarino.setOpaque(true);
        // Establece un color de fondo para el submarino 
          submarino.setBackground(new Color(50, 160, 140));
          add(submarino);
-         timer= new Timer(50, new ActionListener() {
+         barraVida = new JProgressBar(0, 100);
+         // Configura la barra de vida para que muestre el porcentaje de vida restante del submarino
+         barraVida.setBounds(20, 20, 200, 25);
+         // Establece el valor inicial de la barra de vida al 100% (vida completa)
+         barraVida.setValue(100);
+         add(barraVida);
+         labelPuntos = new JLabel("Puntos: 0");
+         labelPuntos.setBounds(20, 60, 200, 30);
+         labelPuntos.setForeground(Color.WHITE);
+         add(labelPuntos);
+
+         labelVidas = new JLabel("Vidas: 5");
+         labelVidas.setBounds(20, 90, 200, 30);
+         labelVidas.setForeground(Color.WHITE);
+         add(labelVidas);
+
+         labelNivel = new JLabel("Nivel: 1");
+         labelNivel.setBounds(20, 120, 200, 30);
+         labelNivel.setForeground(Color.WHITE);
+         add(labelNivel);
+
+         timer= new Timer(150, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.actualizarJuego();
@@ -178,8 +201,42 @@ public class Ventana extends JFrame{
         // según su estado actual en el juego.
         actualizarBarcos();
         actualizarCargas();
+        actualizarHUD();
+        verificarCambioNivel();
+        verificarGameOver();
         repaint();
     }
+    private void verificarGameOver() {
+         if(controlador
+            .getJuego()
+            .getSubmarino()
+            .estaMuerto())
+    {
+        timer.stop();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "GAME OVER"
+        );
+    }
+    }
+
+    private void verificarCambioNivel() {
+        int nivelActual = controlador
+            .getJuego()
+            .getNivelActual();
+
+    if(nivelActual > nivelAnterior)
+    {
+        nivelAnterior = nivelActual;
+
+        JOptionPane.showMessageDialog(
+                this,
+                "¡Subiste al nivel " + nivelActual + "!"
+        );
+    }
+    }
+
     private void actualizarBarcos()
     {
         eliminarBarcos();
@@ -207,7 +264,7 @@ public class Ventana extends JFrame{
         
         for(Carga carga : controlador.getJuego().getCargasActivas()){
            
-            JLabel label = new JLabel("Carga ");
+            JLabel label = new JLabel("");
             label.setBounds((int)carga.getPosX(), (int)carga.getPosY(), 20, 20);
             label.setOpaque(true);
             label.setBackground(new Color(255, 0, 0));
@@ -220,6 +277,38 @@ public class Ventana extends JFrame{
         for (JLabel label : labelsCargas) {
             remove(label);
         }
+    }
+     private void actualizarHUD()
+    {
+        barraVida.setValue(
+                (int) controlador
+                .getJuego()
+                .getSubmarino()
+                .getVida()
+        );
+
+        labelPuntos.setText(
+                "Puntos: " +
+                controlador
+                .getJuego()
+                .getSubmarino()
+                .getPuntaje()
+        );
+
+        labelVidas.setText(
+                "Vidas: " +
+                controlador
+                .getJuego()
+                .getSubmarino()
+                .getVidas()
+        );
+
+        labelNivel.setText(
+                "Nivel: " +
+                controlador
+                .getJuego()
+                .getNivelActual()
+        );
     }
 
 
