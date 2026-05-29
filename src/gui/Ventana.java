@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,6 +28,8 @@ public class Ventana extends JFrame{
     private JLabel labelVidas;
     private JLabel labelNivel;
     private int nivelAnterior;
+    private JLabel fondoLabel;
+    private List<JLabel> labelsExplosiones;
 
     public Ventana()
     {
@@ -125,15 +128,35 @@ public class Ventana extends JFrame{
         nivelAnterior = 1;
         labelsBarcos = new ArrayList<>();
         labelsCargas = new ArrayList<>();
+        labelsExplosiones = new ArrayList<>();
+
+        ImageIcon fondoImagen =
+        new ImageIcon("src/img/fondo_del_juego.png");
+
+        fondoImagen =new ImageIcon(fondoImagen.getImage().getScaledInstance(1024,768,java.awt.Image.SCALE_SMOOTH));
+
+        fondoLabel = new JLabel(fondoImagen);
+
+        fondoLabel.setBounds(0, 0, 1024, 768);
+
+        add(fondoLabel);
+        ImageIcon submarinoImagen =
+        new ImageIcon("src/img/submarino.png");
+
+        submarinoImagen =new ImageIcon(submarinoImagen.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
+        submarino = new JLabel(submarinoImagen);
+
+        submarino.setBounds(100, 300, 120, 60);
+
+        add(submarino);
+
+       
+          getContentPane().setComponentZOrder(fondoLabel,
+            getContentPane().getComponentCount() - 1);
 
 
-       submarino = new JLabel("");
-       submarino.setBounds(100, 300, 50, 30);
-       // Configura el fondo del submarino para que sea visible
-       submarino.setOpaque(true);
-       // Establece un color de fondo para el submarino 
-         submarino.setBackground(new Color(50, 160, 140));
-         add(submarino);
+
+
          barraVida = new JProgressBar(0, 100);
          // Configura la barra de vida para que muestre el porcentaje de vida restante del submarino
          barraVida.setBounds(20, 20, 200, 25);
@@ -242,13 +265,25 @@ public class Ventana extends JFrame{
         eliminarBarcos();
         labelsBarcos.clear();
         for(Barco barco : controlador.getJuego().getBarcosActivos()){
-            JLabel label = new JLabel("Barco");
-            label.setBounds((int)barco.getPosX(), (int)barco.getPosY(), 50, 30);
-            label.setOpaque(true);
-            label.setBackground(new Color(100, 100, 100));
+            ImageIcon barcoImagen =
+        new ImageIcon("src/img/barco.png");
+
+        barcoImagen =new ImageIcon(barcoImagen.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
+
+        JLabel label = new JLabel(barcoImagen);
+
+        label.setBounds(
+                (int) barco.getPosX(),
+                (int) barco.getPosY(),
+                120,
+                60
+            );
             add(label);
             labelsBarcos.add(label);
+
         }
+        getContentPane().setComponentZOrder(fondoLabel,
+            getContentPane().getComponentCount() - 1);
     }
     private void eliminarBarcos() {
         for (JLabel label : labelsBarcos) {
@@ -264,13 +299,23 @@ public class Ventana extends JFrame{
         
         for(Carga carga : controlador.getJuego().getCargasActivas()){
            
-            JLabel label = new JLabel("");
-            label.setBounds((int)carga.getPosX(), (int)carga.getPosY(), 20, 20);
-            label.setOpaque(true);
-            label.setBackground(new Color(255, 0, 0));
+           ImageIcon cargaImagen =
+        new ImageIcon("src/img/carga.png");
+
+        cargaImagen =new ImageIcon(cargaImagen.getImage().getScaledInstance(60,60,java.awt.Image.SCALE_SMOOTH));
+        JLabel label = new JLabel(cargaImagen);
+        label.setBounds((int) carga.getPosX(),(int) carga.getPosY(),60,60);
             add(label);
             labelsCargas.add(label);
+             if(carga.getPosY() > 650)
+                {
+                    mostrarExplosion((int)carga.getPosX(),(int)carga.getPosY());
+                }
+    
         }
+         getContentPane().setComponentZOrder(
+            fondoLabel,
+            getContentPane().getComponentCount() - 1);
     }
 
     private void eliminarCargas() {
@@ -311,8 +356,42 @@ public class Ventana extends JFrame{
         );
     }
 
+    private void mostrarExplosion(int x, int y)
+{
+    ImageIcon explosionImagen =new ImageIcon("src/img/explosion.png");
+    explosionImagen =new ImageIcon(explosionImagen.getImage().getScaledInstance(100,100,java.awt.Image.SCALE_SMOOTH));
+    JLabel explosion =new JLabel(explosionImagen);
+    explosion.setBounds(x, y, 100, 100);
+
+    add(explosion);
+
+    labelsExplosiones.add(explosion);
+
+        // Poner explosión arriba de todo
+    getContentPane().setComponentZOrder(explosion, 0);
+
+    repaint();
+
+        // Timer para eliminar la explosión
+    Timer explosionTimer =new Timer(1000, new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        remove(explosion);
+
+                        labelsExplosiones.remove(explosion);
+
+                        repaint();
+                    }
+                });
+
+    explosionTimer.setRepeats(false);
+
+    explosionTimer.start();
+}
 
 
-    
-    
+
+
 }

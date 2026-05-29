@@ -74,7 +74,7 @@ public class Barco {
     {
         if(verificarLimites(anchoPantalla)) {
 
-        //Utilizo random para que haya una probabilidad del 5% de lanzar una carga.
+        //Utilizo random para que haya una probabilidad del 2% de lanzar una carga.
         return random.nextInt(100) < 2;
     }
     	return  false;       
