@@ -111,7 +111,9 @@ public class Controlador {
     {
         juego.getSubmarino().moverY(10);
     }
-    
+
+   
+
 
     
 
