@@ -26,7 +26,7 @@ import juego.Juego;
 
 
 public class Controlador {
-    public Juego juego;
+    private Juego juego;
     private int anchoPantalla;
     private static Controlador instance;
     
@@ -85,9 +85,12 @@ public class Controlador {
 			instance = new Controlador();
 		return instance;
 	}
-    public Juego getJuego() {
-        return juego;
-    }
+    //creo que el get no va aca sino en
+    //public Juego getJuego() {
+      //  return juego;
+    //}
+
+    
     // Agregar métodos para mover el submarino
     public void moverIzquierda()
     {
