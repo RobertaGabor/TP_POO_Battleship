@@ -22,7 +22,13 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 package controlador;
 
+import java.util.ArrayList;
+import java.util.List;
+import modelo.Barco;
+import modelo.Carga;
 import modelo.Juego;
+import views.EstadoJuego;
+import views.MovibleView;
 
 
 public class Controlador {
@@ -52,8 +58,10 @@ public class Controlador {
     
     public void actualizarJuego()
     {
+        
         // Este método se encarga de actualizar el estado del juego.
     	juego.actualizarJuego(anchoPantalla);
+
 
     };
     public int obtenerAnchoPantalla()
@@ -110,6 +118,47 @@ public class Controlador {
     public void moverAbajo()
     {
         juego.getSubmarino().moverY(10);
+    }
+
+    //Views:
+
+    public MovibleView getSubmarinoViews()
+    {
+        return new MovibleView(
+            (int) juego.getSubmarino().getPosX(),
+            (int) juego.getSubmarino().getPosY(),
+            80, // Ancho del submarino
+            40, // Alto del submarino
+            false // El submarino no explota
+        );
+
+
+    }
+    public List<MovibleView> getBarcosView() {
+        List<MovibleView> views = new ArrayList<>();
+        for(Barco b : juego.getBarcosActivos()) {
+            views.add(new MovibleView((int) b.getPosX(), (int) b.getPosY(), 120, 60, false));
+        }
+        return views;
+    }
+
+    public List<MovibleView> getCargasView() {
+        List<MovibleView> views = new ArrayList<>();
+        for(Carga c : juego.getCargasActivas()) 
+            {
+            views.add(new MovibleView((int) c.getPosX(),(int) c.getPosY(),60,60,c.isExplotando()));
+            }
+        return views;
+    }
+
+    public EstadoJuego getEstadoJuegoView() {
+        return new EstadoJuego(
+            juego.getSubmarino().getVida(),
+            juego.getSubmarino().getPuntaje(),
+            juego.getSubmarino().getVidas(),
+            juego.getNivelActual(),
+            juego.getSubmarino().estaMuerto() // Asumo que creaste este método en Submarino
+        );
     }
 
    

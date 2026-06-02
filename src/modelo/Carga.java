@@ -31,7 +31,9 @@ public class Carga {
     private static final float LIMITE_SUPERIOR_Y = 300.0f;
     private static final float LIMITE_INFERIOR_Y = 800.0f;
     private boolean exploto = false;
+    private boolean explosionMostrada = false;
     private Random rand;
+    private int tiempoExplosion = 0;
 
     public Carga(float velocidad, float posX, float posY) {
 
@@ -44,7 +46,10 @@ public class Carga {
 
     public void caer()
     {
-        posY += velocidadCaida;
+        if (!exploto) {
+            posY += velocidadCaida;
+        }
+        
 
     };
     public boolean verificarDetonacion(){
@@ -60,6 +65,26 @@ public class Carga {
     {
     	return this.posY;
     };
+     public boolean isExplotando()
+    {
+        return exploto;
+    }
+    public boolean isExplosionMostrada() {
+        return explosionMostrada;
+    }
+
+    public void marcarExplosionMostrada() {
+        explosionMostrada = true;
+    }
+    public void incrementarTiempoExplosion()
+    {
+    tiempoExplosion++;
+    }
+
+    public int getTiempoExplosion()
+    {
+        return tiempoExplosion;
+    }
 
 
 

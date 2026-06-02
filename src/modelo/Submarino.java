@@ -46,7 +46,7 @@ public class Submarino {
         if (posY >= LIMITE_SUPERIOR_Y && posY <= LIMITE_INFERIOR_Y) {
             this.posY = posY;
         } else {
-            this.posY = LIMITE_SUPERIOR_Y; // Valor por defecto seguro
+            this.posY =  LIMITE_SUPERIOR_Y; // Valor por defecto seguro
         }
         this.posX = posX;
         this.vida = VIDA_MAXIMA;
@@ -54,11 +54,11 @@ public class Submarino {
         this.puntaje = PUNTAJE_INICIAL;
         this.puntosParaSiguienteVidaExtra = OBJETIVO_PUNTOS_VIDA_EXTRA;
     }
-    public void moverX(float dx) {
+    public void moverX(int dx) {
         posX += dx;
     }
 
-    public void moverY(float dy) {
+    public void moverY(int dy) {
 
         float nuevaPosY = posY + dy;
         //verifico que se cumpla los limites
