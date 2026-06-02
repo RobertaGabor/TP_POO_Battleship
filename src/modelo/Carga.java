@@ -19,7 +19,7 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 ************************************RECUERDEN USAR SUS BRANCHES PARA LUEGO MERGEAR*********************
 
 */
-package carga;
+package modelo;
 import java.util.Random;
 
 public class Carga {

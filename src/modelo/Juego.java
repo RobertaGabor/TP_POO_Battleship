@@ -20,14 +20,11 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 */
 
-package juego;
+package modelo;
 
-import barco.Barco;
-import carga.Carga;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import submarino.Submarino;
 
 public class Juego {
     

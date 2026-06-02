@@ -20,7 +20,7 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 */
 
-package submarino;
+package modelo;
 
 public class Submarino {
 

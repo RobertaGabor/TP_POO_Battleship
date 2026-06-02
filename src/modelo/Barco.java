@@ -22,11 +22,10 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 */
 
 
-package barco;
+package modelo;
 
 
 
-import carga.Carga;
 import java.util.Random;
 
 
