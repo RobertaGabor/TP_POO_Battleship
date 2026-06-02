@@ -22,7 +22,7 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 package controlador;
 
-import juego.Juego;
+import modelo.Juego;
 
 
 public class Controlador {

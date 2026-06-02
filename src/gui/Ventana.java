@@ -1,7 +1,8 @@
 package gui;
-import barco.Barco;
-import carga.Carga;
 import controlador.Controlador;
+import modelo.Barco;
+import modelo.Carga;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
