@@ -5,7 +5,7 @@ import views.MovibleView;
 
 public class TestControlador {
     public static void main(String[] args) {
-        System.out.println("Iniciando prueba del Controlador...");
+        System.out.println("Iniciando prueba del Controlador: ");
         Controlador controlador = new Controlador();
          MovibleView subInicial = controlador.getSubmarinoViews();
 
@@ -48,7 +48,7 @@ public class TestControlador {
         System.out.println("Nivel: " + estado.getNivelActual());
         System.out.println("¿Está muerto?: " + estado.isEstaMuerto());
 
-        System.out.println("=== FIN TEST CONTROLADOR ===");
+        System.out.println("FIN TEST CONTROLADOR");
     }
     
 }

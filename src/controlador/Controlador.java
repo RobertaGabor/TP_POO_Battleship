@@ -34,6 +34,7 @@ import views.MovibleView;
 public class Controlador {
     private Juego juego;
     private int anchoPantalla;
+    private int altoPantalla;
     private static Controlador instance;
     
 
@@ -42,6 +43,7 @@ public class Controlador {
         //juego= new Juego();
         this.juego = new Juego();
         this.anchoPantalla = 1024; // El tamaño que decidan para la pantalla
+        this.altoPantalla = 768; // El tamaño que decidan para la pantalla
     };
 
     public void iniciarPartida()
@@ -68,12 +70,10 @@ public class Controlador {
     {
     	return anchoPantalla;
     };
-    public void procesarEntrada()
+    public int obtenerAltoPantalla()
     {
-
-
-
-    };
+    	return altoPantalla;
+   };
      public void pausarJuego()
      {
         juego.pausarJuego();
@@ -102,23 +102,24 @@ public class Controlador {
     // Agregar métodos para mover el submarino
     public void moverIzquierda()
     {
-        juego.getSubmarino().moverX(-10);
+        juego.getSubmarino().moverX(-10, obtenerAnchoPantalla(), 120);
     }
 
     public void moverDerecha()
     {
-        juego.getSubmarino().moverX(10);
+        juego.getSubmarino().moverX(10, obtenerAnchoPantalla(), 120);
     }
 
     public void moverArriba()
     {
-        juego.getSubmarino().moverY(-10);
+        juego.getSubmarino().moverY(-10, obtenerAltoPantalla(), 100);
     }
 
     public void moverAbajo()
     {
-        juego.getSubmarino().moverY(10);
+        juego.getSubmarino().moverY(10, obtenerAltoPantalla(), 100);
     }
+    
 
     //Views:
 

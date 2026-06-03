@@ -41,7 +41,7 @@ public class Juego {
         this.submarino = new Submarino(100.0f, 300.0f); 
         this.barcosActivos = new ArrayList<>();
         this.cargasActivas = new ArrayList<>();
-        this.velocidadMovimiento = (float) 10.0; // Velocidad base inicial
+        this.velocidadMovimiento = (float) 15.0; // Velocidad base inicial
         this.nivelActual = 1;
         this.barcosPendientes = 12; // Los barcos están organizados en series de 12 por nivel
         this.enPartida = false;
