@@ -17,6 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
+import java.awt.Image;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 
 public class Ventana extends JFrame{
@@ -39,6 +42,9 @@ public class Ventana extends JFrame{
     private ImageIcon submarinoImagen;
     private ImageIcon fondoImagen;
     private List<String> explosionesMostradas;
+    private ImageIcon submarinoIzquierdo;
+    private ImageIcon submarinoDerecha;
+    private boolean mirandoDerecha = false;
 
     public Ventana()
     {
@@ -85,6 +91,12 @@ public class Ventana extends JFrame{
                     case KeyEvent.VK_LEFT:
 
                         controlador.moverIzquierda();
+                        if (mirandoDerecha) 
+                            {
+                                submarino.setIcon(submarinoIzquierdo);
+                                mirandoDerecha = false;
+                            }
+                        
 
                         break;
                     case KeyEvent.VK_RIGHT:
@@ -92,6 +104,12 @@ public class Ventana extends JFrame{
                     
 
                         controlador.moverDerecha();
+                        if (!mirandoDerecha) 
+                            {
+                                submarino.setIcon(submarinoDerecha);
+                                mirandoDerecha = true;
+                            }
+
 
                         break;
 
@@ -151,26 +169,14 @@ public class Ventana extends JFrame{
 
         add(fondoLabel);
         
-        ImageIcon submarinoImagen =
-        new ImageIcon("src/img/submarino.png");
+        submarinoIzquierdo =new ImageIcon("src/img/submarino.png");
 
         barcoImagen = new ImageIcon("src/img/barco.png");
-    barcoImagen = new ImageIcon(
-        barcoImagen.getImage().getScaledInstance(
-            120,
-            60,
-            java.awt.Image.SCALE_SMOOTH
-        )
-    );
+        barcoImagen = new ImageIcon(
+        barcoImagen.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
 
-    cargaImagen = new ImageIcon("src/img/carga.png");
-    cargaImagen = new ImageIcon(
-        cargaImagen.getImage().getScaledInstance(
-            60,
-            60,
-            java.awt.Image.SCALE_SMOOTH
-        )
-    );
+        cargaImagen = new ImageIcon("src/img/carga.png");
+        cargaImagen = new ImageIcon(cargaImagen.getImage().getScaledInstance(60,60,java.awt.Image.SCALE_SMOOTH));
 
     explosionImagen = new ImageIcon("src/img/explosion.png");
     explosionImagen = new ImageIcon(
@@ -179,8 +185,11 @@ public class Ventana extends JFrame{
     );
 
 
-        submarinoImagen =new ImageIcon(submarinoImagen.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
-        submarino = new JLabel(submarinoImagen);
+        submarinoIzquierdo =new ImageIcon(submarinoIzquierdo.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
+        
+        submarinoDerecha=invertirImagen(submarinoIzquierdo);
+        //submarinoDerecha = new ImageIcon(submarinoIzquierdo.getImage().getScaledInstance(120, 60, java.awt.Image.SCALE_SMOOTH));
+        submarino = new JLabel(submarinoIzquierdo);
 
         submarino.setBounds(100, 300, 120, 60);
 
@@ -224,6 +233,20 @@ public class Ventana extends JFrame{
             
         });
         timer.start();
+    }
+
+    private ImageIcon invertirImagen(ImageIcon icono) {
+        Image img = icono.getImage();
+
+        BufferedImage imagenInvertida = new BufferedImage(icono.getIconWidth(),icono.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g = imagenInvertida.createGraphics();
+
+        g.drawImage(img,icono.getIconWidth(), 0,0, icono.getIconHeight(),0, 0,icono.getIconWidth(), icono.getIconHeight(),null);
+
+        g.dispose();
+
+        return new ImageIcon(imagenInvertida);
     }
 
     private void configurar() {
