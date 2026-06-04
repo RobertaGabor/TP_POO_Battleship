@@ -29,7 +29,8 @@ package modelo;
 import java.util.Random;
 
 
-public class Barco {
+public class
+Ba rco {
     
     private float posX;
     private float posY;
