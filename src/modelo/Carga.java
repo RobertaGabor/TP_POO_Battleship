@@ -86,7 +86,4 @@ public class Carga {
         return tiempoExplosion;
     }
 
-
-
-
 }

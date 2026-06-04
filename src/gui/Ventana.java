@@ -202,9 +202,6 @@ public class Ventana extends JFrame{
        //el fondoLabel se coloca en la posición más baja (más atrás) para que los demás componentes se muestren por encima de él.
         getContentPane().setComponentZOrder(fondoLabel,getContentPane().getComponentCount() - 1);
 
-
-
-
          barraVida = new JProgressBar(0, 100);
          // Configura la barra de vida para que muestre el porcentaje de vida restante del submarino
          barraVida.setBounds(20, 20, 200, 25);
