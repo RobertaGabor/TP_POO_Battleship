@@ -41,7 +41,7 @@ public class Juego {
         this.submarino = new Submarino(100.0f, 300.0f); 
         this.barcosActivos = new ArrayList<>();
         this.cargasActivas = new ArrayList<>();
-        this.velocidadMovimiento = (float) 10.0; // Velocidad base inicial
+        this.velocidadMovimiento = (float) 15.0; // Velocidad base inicial
         this.nivelActual = 1;
         this.barcosPendientes = 12; // Los barcos están organizados en series de 12 por nivel
         this.enPartida = false;
@@ -57,6 +57,9 @@ public class Juego {
 
     public void actualizarJuego(int anchoPantalla)
     {
+        if (!enPartida) {
+            return;
+        }
         if (pausado) {
             System.out.println("El juego esta pausado.");
             return;
@@ -88,17 +91,29 @@ public class Juego {
         // SECCION CARGAS: reviso cargas que esten cayendo
         Iterator<Carga> itCargas = cargasActivas.iterator();
         while (itCargas.hasNext()) {
-            Carga cargaActual = itCargas.next();
-            
-            // Mueve carga hacia el fondo
-            cargaActual.caer();
-            
-            // Si la carga detona, procesamos y eliminamos usando el ITERADOR
-            if (cargaActual.verificarDetonacion()) {
-                procesarExplosion(cargaActual);
-                System.out.println("LA CARGA YA EXPLOTO");
-                itCargas.remove(); 
-            }
+           Carga cargaActual = itCargas.next();
+
+    if (!cargaActual.isExplotando()) {
+
+        cargaActual.caer();
+
+        if (cargaActual.verificarDetonacion()) {
+            procesarExplosion(cargaActual);
+            System.out.println("LA CARGA YA EXPLOTO");
+        }
+
+    } else {
+
+        System.out.println("LA CARGA SIGUE EXPLOTANDO");
+
+        cargaActual.incrementarTiempoExplosion();
+
+        if (cargaActual.getTiempoExplosion() >= 4) {
+            System.out.println("SE ELIMINO LA CARGA EXPLOTADA");
+            itCargas.remove();
+        }
+    }
+          
         }       
         
         // Check si quedan barcos etc para ver si subir y reiniciar

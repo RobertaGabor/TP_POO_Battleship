@@ -36,7 +36,7 @@ public class Submarino {
     private int puntosParaSiguienteVidaExtra;
     // Límites de movimiento del submarino
     private static final float LIMITE_SUPERIOR_Y = 300.0f;
-    private static final float LIMITE_INFERIOR_Y = 800.0f;
+    private static final float LIMITE_INFERIOR_Y = 740.0f;
     // Objetivo de puntos para ganar una vida extra
     private static final int OBJETIVO_PUNTOS_VIDA_EXTRA = 500;
 
@@ -46,7 +46,7 @@ public class Submarino {
         if (posY >= LIMITE_SUPERIOR_Y && posY <= LIMITE_INFERIOR_Y) {
             this.posY = posY;
         } else {
-            this.posY = LIMITE_SUPERIOR_Y; // Valor por defecto seguro
+            this.posY =  LIMITE_SUPERIOR_Y; // Valor por defecto seguro
         }
         this.posX = posX;
         this.vida = VIDA_MAXIMA;
@@ -54,17 +54,34 @@ public class Submarino {
         this.puntaje = PUNTAJE_INICIAL;
         this.puntosParaSiguienteVidaExtra = OBJETIVO_PUNTOS_VIDA_EXTRA;
     }
-    public void moverX(float dx) {
-        posX += dx;
+    public void moverX(int dx, int anchoPantalla, int anchoSubmarino) {
+        float nuevaPosX = posX + dx;
+
+        if (nuevaPosX < 0) {
+            posX = 0;
+        } else if (nuevaPosX > anchoPantalla - anchoSubmarino) {
+            posX = anchoPantalla - anchoSubmarino;
+        } else {
+            posX = nuevaPosX;
+    }
     }
 
-    public void moverY(float dy) {
+    public void moverY(int dy, int altoPantalla, int altoSubmarino) {
 
         float nuevaPosY = posY + dy;
-        //verifico que se cumpla los limites
-        if (nuevaPosY >= LIMITE_SUPERIOR_Y && nuevaPosY <= LIMITE_INFERIOR_Y) {
-            posY = nuevaPosY;
-        }
+
+        if (nuevaPosY < LIMITE_SUPERIOR_Y) 
+            {
+                posY = LIMITE_SUPERIOR_Y;
+            } 
+        else if (nuevaPosY > altoPantalla - altoSubmarino)  
+            {
+                posY = altoPantalla - altoSubmarino;
+            } 
+        else 
+            {
+                posY = nuevaPosY;
+            }
     }
 
 

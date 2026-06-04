@@ -1,7 +1,8 @@
 package gui;
 import controlador.Controlador;
-import modelo.Barco;
-import modelo.Carga;
+
+import views.EstadoJuego;
+import views.MovibleView;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
+import java.awt.Image;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 
 public class Ventana extends JFrame{
     private Controlador controlador;
@@ -31,6 +36,15 @@ public class Ventana extends JFrame{
     private int nivelAnterior;
     private JLabel fondoLabel;
     private List<JLabel> labelsExplosiones;
+    private ImageIcon barcoImagen;
+    private ImageIcon cargaImagen;
+    private ImageIcon explosionImagen;
+    private ImageIcon submarinoImagen;
+    private ImageIcon fondoImagen;
+    private List<String> explosionesMostradas;
+    private ImageIcon submarinoIzquierdo;
+    private ImageIcon submarinoDerecha;
+    private boolean mirandoDerecha = false;
 
     public Ventana()
     {
@@ -77,6 +91,12 @@ public class Ventana extends JFrame{
                     case KeyEvent.VK_LEFT:
 
                         controlador.moverIzquierda();
+                        if (mirandoDerecha) 
+                            {
+                                submarino.setIcon(submarinoIzquierdo);
+                                mirandoDerecha = false;
+                            }
+                        
 
                         break;
                     case KeyEvent.VK_RIGHT:
@@ -84,6 +104,12 @@ public class Ventana extends JFrame{
                     
 
                         controlador.moverDerecha();
+                        if (!mirandoDerecha) 
+                            {
+                                submarino.setIcon(submarinoDerecha);
+                                mirandoDerecha = true;
+                            }
+
 
                         break;
 
@@ -130,8 +156,9 @@ public class Ventana extends JFrame{
         labelsBarcos = new ArrayList<>();
         labelsCargas = new ArrayList<>();
         labelsExplosiones = new ArrayList<>();
+        explosionesMostradas = new ArrayList<>();
 
-        ImageIcon fondoImagen =
+        fondoImagen =
         new ImageIcon("src/img/fondo_del_juego.png");
 
         fondoImagen =new ImageIcon(fondoImagen.getImage().getScaledInstance(1024,768,java.awt.Image.SCALE_SMOOTH));
@@ -141,15 +168,33 @@ public class Ventana extends JFrame{
         fondoLabel.setBounds(0, 0, 1024, 768);
 
         add(fondoLabel);
-        ImageIcon submarinoImagen =
-        new ImageIcon("src/img/submarino.png");
+        
+        submarinoIzquierdo =new ImageIcon("src/img/submarino.png");
 
-        submarinoImagen =new ImageIcon(submarinoImagen.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
-        submarino = new JLabel(submarinoImagen);
+        barcoImagen = new ImageIcon("src/img/barco.png");
+        barcoImagen = new ImageIcon(
+        barcoImagen.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
+
+        cargaImagen = new ImageIcon("src/img/carga.png");
+        cargaImagen = new ImageIcon(cargaImagen.getImage().getScaledInstance(60,60,java.awt.Image.SCALE_SMOOTH));
+
+    explosionImagen = new ImageIcon("src/img/explosion.png");
+    explosionImagen = new ImageIcon(
+        explosionImagen.getImage().getScaledInstance(100,100,java.awt.Image.SCALE_SMOOTH
+        )
+    );
+
+
+        submarinoIzquierdo =new ImageIcon(submarinoIzquierdo.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
+        
+        submarinoDerecha=invertirImagen(submarinoIzquierdo);
+        //submarinoDerecha = new ImageIcon(submarinoIzquierdo.getImage().getScaledInstance(120, 60, java.awt.Image.SCALE_SMOOTH));
+        submarino = new JLabel(submarinoIzquierdo);
 
         submarino.setBounds(100, 300, 120, 60);
 
         add(submarino);
+        
 
        
           getContentPane().setComponentZOrder(fondoLabel,
@@ -190,6 +235,20 @@ public class Ventana extends JFrame{
         timer.start();
     }
 
+    private ImageIcon invertirImagen(ImageIcon icono) {
+        Image img = icono.getImage();
+
+        BufferedImage imagenInvertida = new BufferedImage(icono.getIconWidth(),icono.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g = imagenInvertida.createGraphics();
+
+        g.drawImage(img,icono.getIconWidth(), 0,0, icono.getIconHeight(),0, 0,icono.getIconWidth(), icono.getIconHeight(),null);
+
+        g.dispose();
+
+        return new ImageIcon(imagenInvertida);
+    }
+
     private void configurar() {
         setTitle("Juego Submarino");
         // Establece el tamaño de la ventana
@@ -209,20 +268,9 @@ public class Ventana extends JFrame{
     // según su estado actual en el juego.
     private void actualizarPantalla()
     {
-        // Obtiene la posición actual del submarino desde el controlador
-        int x = (int) controlador
-                .getJuego()
-                .getSubmarino()
-                .getPosX();
+       MovibleView subView = controlador.getSubmarinoViews();
+        submarino.setLocation((int)subView.getX(), (int)subView.getY());
 
-        int y = (int) controlador
-                .getJuego()
-                .getSubmarino()
-                .getPosY();
-        // Actualiza la posición del submarino en la interfaz gráfica
-        submarino.setLocation(x, y);
-        // Aquí también podrías actualizar la posición de los barcos, las cargas, y otros elementos del juego
-        // según su estado actual en el juego.
         actualizarBarcos();
         actualizarCargas();
         actualizarHUD();
@@ -231,60 +279,40 @@ public class Ventana extends JFrame{
         repaint();
     }
     private void verificarGameOver() {
-         if(controlador
-            .getJuego()
-            .getSubmarino()
-            .estaMuerto())
-    {
-        timer.stop();
-
-        JOptionPane.showMessageDialog(
-                this,
-                "GAME OVER"
-        );
-    }
+         EstadoJuego estado = controlador.getEstadoJuegoView();
+        
+        if(estado.isEstaMuerto()) {
+            timer.stop();
+            JOptionPane.showMessageDialog(this, "GAME OVER");
+        }
     }
 
     private void verificarCambioNivel() {
-        int nivelActual = controlador
-            .getJuego()
-            .getNivelActual();
+          EstadoJuego estado = controlador.getEstadoJuegoView();
+        int nivelActual = estado.getNivelActual();
 
-    if(nivelActual > nivelAnterior)
-    {
-        nivelAnterior = nivelActual;
-
-        JOptionPane.showMessageDialog(
-                this,
-                "¡Subiste al nivel " + nivelActual + "!"
-        );
-    }
+        if(nivelActual > nivelAnterior) {
+            nivelAnterior = nivelActual;
+            JOptionPane.showMessageDialog(this, "¡Subiste al nivel " + nivelActual + "!");
+        }
     }
 
     private void actualizarBarcos()
     {
         eliminarBarcos();
         labelsBarcos.clear();
-        for(Barco barco : controlador.getJuego().getBarcosActivos()){
-            ImageIcon barcoImagen =
-        new ImageIcon("src/img/barco.png");
+        
+        // Recorremos las Vistas, no los objetos de negocio
+        for(MovibleView barcoView : controlador.getBarcosView()){
 
-        barcoImagen =new ImageIcon(barcoImagen.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
+            JLabel label = new JLabel(barcoImagen);
 
-        JLabel label = new JLabel(barcoImagen);
-
-        label.setBounds(
-                (int) barco.getPosX(),
-                (int) barco.getPosY(),
-                120,
-                60
-            );
+            label.setBounds((int)barcoView.getX(), (int)barcoView.getY(), (int)barcoView.getAncho(), (int)barcoView.getAlto());
             add(label);
             labelsBarcos.add(label);
-
         }
-        getContentPane().setComponentZOrder(fondoLabel,
-            getContentPane().getComponentCount() - 1);
+        getContentPane().setComponentZOrder(fondoLabel, getContentPane().getComponentCount() - 1);
+   
     }
     private void eliminarBarcos() {
         for (JLabel label : labelsBarcos) {
@@ -295,29 +323,29 @@ public class Ventana extends JFrame{
     private void actualizarCargas()
     {
         eliminarCargas();
-        // Limpia la lista de etiquetas de cargas antes de agregar las nuevas etiquetas
-        labelsCargas.clear();
-        
-        for(Carga carga : controlador.getJuego().getCargasActivas()){
-           
-           ImageIcon cargaImagen =
-        new ImageIcon("src/img/carga.png");
+    labelsCargas.clear();
 
-        cargaImagen =new ImageIcon(cargaImagen.getImage().getScaledInstance(60,60,java.awt.Image.SCALE_SMOOTH));
+    for(MovibleView cargaView : controlador.getCargasView())
+    {
+        if(!cargaView.isExplotando())
+        {
         JLabel label = new JLabel(cargaImagen);
-        label.setBounds((int) carga.getPosX(),(int) carga.getPosY(),60,60);
-            add(label);
-            labelsCargas.add(label);
-             if(carga.getPosY() > 650)
-                {
-                    mostrarExplosion((int)carga.getPosX(),(int)carga.getPosY());
-                }
-    
-        }
-         getContentPane().setComponentZOrder(
-            fondoLabel,
-            getContentPane().getComponentCount() - 1);
+
+        label.setBounds((int)cargaView.getX(),(int)cargaView.getY(),(int)cargaView.getAncho(),(int)cargaView.getAlto());
+
+        add(label);
+        labelsCargas.add(label);
     }
+        else
+        {
+           mostrarExplosion((int)cargaView.getX(),(int)cargaView.getY());
+        }
+        
+    }
+
+    getContentPane().setComponentZOrder(fondoLabel,getContentPane().getComponentCount() - 1);
+    }
+    
 
     private void eliminarCargas() {
         for (JLabel label : labelsCargas) {
@@ -326,72 +354,45 @@ public class Ventana extends JFrame{
     }
      private void actualizarHUD()
     {
-        barraVida.setValue(
-                (int) controlador
-                .getJuego()
-                .getSubmarino()
-                .getVida()
-        );
+       EstadoJuego estado = controlador.getEstadoJuegoView();
 
-        labelPuntos.setText(
-                "Puntos: " +
-                controlador
-                .getJuego()
-                .getSubmarino()
-                .getPuntaje()
-        );
-
-        labelVidas.setText(
-                "Vidas: " +
-                controlador
-                .getJuego()
-                .getSubmarino()
-                .getVidas()
-        );
-
-        labelNivel.setText(
-                "Nivel: " +
-                controlador
-                .getJuego()
-                .getNivelActual()
-        );
+        barraVida.setValue((int) estado.getVida());
+        labelPuntos.setText("Puntos: " + estado.getPuntaje());
+        labelVidas.setText("Vidas: " + estado.getVidasRestantes());
+        labelNivel.setText("Nivel: " + estado.getNivelActual());
     }
 
     private void mostrarExplosion(int x, int y)
 {
-    ImageIcon explosionImagen =new ImageIcon("src/img/explosion.png");
-    explosionImagen =new ImageIcon(explosionImagen.getImage().getScaledInstance(100,100,java.awt.Image.SCALE_SMOOTH));
-    JLabel explosion =new JLabel(explosionImagen);
+    JLabel explosion = new JLabel(explosionImagen);
+
     explosion.setBounds(x, y, 100, 100);
 
     add(explosion);
 
     labelsExplosiones.add(explosion);
 
-        // Poner explosión arriba de todo
+    getContentPane().setComponentZOrder(fondoLabel,getContentPane().getComponentCount() - 1);
+
     getContentPane().setComponentZOrder(explosion, 0);
 
+    revalidate();
     repaint();
 
-        // Timer para eliminar la explosión
-    Timer explosionTimer =new Timer(1000, new ActionListener()
-                {
-                    @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
-                        remove(explosion);
-
-                        labelsExplosiones.remove(explosion);
-
-                        repaint();
-                    }
-                });
+    Timer explosionTimer = new Timer(200, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            remove(explosion);
+            labelsExplosiones.remove(explosion);
+            revalidate();
+            repaint();
+        }
+    });
 
     explosionTimer.setRepeats(false);
-
     explosionTimer.start();
 }
-
 
 
 
