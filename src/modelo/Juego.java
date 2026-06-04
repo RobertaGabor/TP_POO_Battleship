@@ -237,6 +237,25 @@ public class Juego {
     {
         return nivelActual;
     }
+    public void moverSubmarinoIzquierda(int anchoPantalla, int anchoSubmarino) 
+    {
+        submarino.moverX(-10, anchoPantalla, anchoSubmarino);
+    }
+
+    public void moverSubmarinoDerecha(int anchoPantalla, int anchoSubmarino) 
+    {
+        submarino.moverX(10, anchoPantalla, anchoSubmarino);
+    }
+
+    public void moverSubmarinoArriba(int altoPantalla, int altoSubmarino) 
+    {
+        submarino.moverY(-10, altoPantalla, altoSubmarino);
+    }
+
+    public void moverSubmarinoAbajo(int altoPantalla, int altoSubmarino) 
+    {
+        submarino.moverY(10, altoPantalla, altoSubmarino);
+    }
 
 
 

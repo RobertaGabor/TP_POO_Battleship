@@ -102,22 +102,22 @@ public class Controlador {
     // Agregar métodos para mover el submarino
     public void moverIzquierda()
     {
-        juego.getSubmarino().moverX(-10, obtenerAnchoPantalla(), 120);
+       juego.moverSubmarinoIzquierda(anchoPantalla, 120);
     }
 
     public void moverDerecha()
     {
-        juego.getSubmarino().moverX(10, obtenerAnchoPantalla(), 120);
+        juego.moverSubmarinoDerecha(anchoPantalla, 120);
     }
 
     public void moverArriba()
     {
-        juego.getSubmarino().moverY(-10, obtenerAltoPantalla(), 100);
+        juego.moverSubmarinoArriba(obtenerAltoPantalla(), 100);
     }
 
     public void moverAbajo()
     {
-        juego.getSubmarino().moverY(10, obtenerAltoPantalla(), 100);
+        juego.moverSubmarinoAbajo(obtenerAltoPantalla(), 100);
     }
     
 

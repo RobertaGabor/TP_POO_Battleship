@@ -106,6 +106,8 @@ public class Ventana extends JFrame{
                         controlador.moverDerecha();
                         if (!mirandoDerecha) 
                             {
+                                //setIcon es un método de JLabel que se utiliza para establecer la imagen que se 
+                                // mostrará en el JLabel.
                                 submarino.setIcon(submarinoDerecha);
                                 mirandoDerecha = true;
                             }
@@ -170,7 +172,9 @@ public class Ventana extends JFrame{
         add(fondoLabel);
         
         submarinoIzquierdo =new ImageIcon("src/img/submarino.png");
-
+        //la diferencia entre ImagenIcon y Icon es que ImageIcon es una clase que implementa la interfaz Icon, 
+        // lo que significa que puedes usar un ImageIcon en cualquier lugar donde se espere un Icon.
+        // ImageIcon es una clase concreta que proporciona una implementación específica de la interfaz Icon, mientras
         barcoImagen = new ImageIcon("src/img/barco.png");
         barcoImagen = new ImageIcon(
         barcoImagen.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
@@ -178,11 +182,8 @@ public class Ventana extends JFrame{
         cargaImagen = new ImageIcon("src/img/carga.png");
         cargaImagen = new ImageIcon(cargaImagen.getImage().getScaledInstance(60,60,java.awt.Image.SCALE_SMOOTH));
 
-    explosionImagen = new ImageIcon("src/img/explosion.png");
-    explosionImagen = new ImageIcon(
-        explosionImagen.getImage().getScaledInstance(100,100,java.awt.Image.SCALE_SMOOTH
-        )
-    );
+        explosionImagen = new ImageIcon("src/img/explosion.png");
+        explosionImagen = new ImageIcon(explosionImagen.getImage().getScaledInstance(100,100,java.awt.Image.SCALE_SMOOTH));
 
 
         submarinoIzquierdo =new ImageIcon(submarinoIzquierdo.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
@@ -196,19 +197,20 @@ public class Ventana extends JFrame{
         add(submarino);
         
 
-       
-          getContentPane().setComponentZOrder(fondoLabel,
-            getContentPane().getComponentCount() - 1);
-
-
-
+       // El método getContentPane().setComponentZOrder se utiliza para establecer el
+       //  orden de apilamiento de los componentes en el contenedor de la ventana.
+       //el fondoLabel se coloca en la posición más baja (más atrás) para que los demás componentes se muestren por encima de él.
+        getContentPane().setComponentZOrder(fondoLabel,getContentPane().getComponentCount() - 1);
 
          barraVida = new JProgressBar(0, 100);
          // Configura la barra de vida para que muestre el porcentaje de vida restante del submarino
          barraVida.setBounds(20, 20, 200, 25);
          // Establece el valor inicial de la barra de vida al 100% (vida completa)
+         barraVida.setForeground(new Color(163,41,3));
          barraVida.setValue(100);
+        
          add(barraVida);
+
          labelPuntos = new JLabel("Puntos: 0");
          labelPuntos.setBounds(20, 60, 200, 30);
          labelPuntos.setForeground(Color.WHITE);
@@ -236,14 +238,16 @@ public class Ventana extends JFrame{
     }
 
     private ImageIcon invertirImagen(ImageIcon icono) {
+        // el icono.getImage hace referencia a la imagen real que se muestra en el JLabel.
         Image img = icono.getImage();
+        // el bufferedImage es una clase que representa una imagen en memoria, y se utiliza para manipular la imagen de manera más eficiente.
+        //esto haciendo que la imagen tenga el mismo tamaño que el icono original y un tipo de imagen compatible con la transparencia (ARGB).
 
         BufferedImage imagenInvertida = new BufferedImage(icono.getIconWidth(),icono.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
-
+        // aca hace que el Graphics2D se utilice para dibujar la imagen original en el nuevo BufferedImage, pero con las coordenadas invertidas para lograr el efecto de espejo horizontal.
         Graphics2D g = imagenInvertida.createGraphics();
-
         g.drawImage(img,icono.getIconWidth(), 0,0, icono.getIconHeight(),0, 0,icono.getIconWidth(), icono.getIconHeight(),null);
-
+        //el dispone se utiliza para liberar los recursos del Graphics2D después de haber terminado de dibujar la imagen invertida.
         g.dispose();
 
         return new ImageIcon(imagenInvertida);
