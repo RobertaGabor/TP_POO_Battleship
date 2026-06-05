@@ -40,8 +40,8 @@ import views.SubmarinoView;
     {
     
         this.juego = new Juego();
-        this.anchoPantalla = 1024; // El tamaño que decidan para la pantalla
-        this.altoPantalla = 768; // El tamaño que decidan para la pantalla
+        this.anchoPantalla = 1024; 
+        this.altoPantalla = 768; 
     };
 
     public void iniciarPartida()
@@ -52,9 +52,7 @@ import views.SubmarinoView;
         }
 
 
-        //instanciar controladores de movimiento
-        //instanciar pantallas
-        //instanciar timers de actualizacion de pantalla
+
     
     public void actualizarJuego()
     {
@@ -132,9 +130,5 @@ import views.SubmarinoView;
         return juego.getEstadoJuegoView();
     }
 
-   
-
-
-    
 
 }

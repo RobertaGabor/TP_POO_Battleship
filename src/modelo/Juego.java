@@ -273,7 +273,7 @@ public class Juego {
 
         for (Barco b : barcosActivos) 
             {
-                views.add(new BarcoView((int) b.getPosX(),(int) b.getPosY(),120,60,false));
+                views.add(new BarcoView((int) b.getPosX(),(int) b.getPosY(),120,60));
             }
 
         return views;

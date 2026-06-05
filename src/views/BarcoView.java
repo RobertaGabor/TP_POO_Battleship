@@ -5,14 +5,14 @@ public class BarcoView {
     private int y;
     private int ancho;
     private int alto;
-    private boolean explotando;
     
-    public BarcoView(int x, int y, int ancho, int alto, boolean explotando) {
+    
+    public BarcoView(int x, int y, int ancho, int alto) {
         this.x = x;
         this.y = y;
         this.ancho = ancho;
         this.alto = alto;
-        this.explotando = explotando;
+        
     }
    
 
@@ -22,7 +22,7 @@ public class BarcoView {
     public int getY() { return y; }
     public int getAncho() { return ancho; }
     public int getAlto() { return alto; }
-    public boolean isExplotando() { return explotando; }
+    
     
     
 }
