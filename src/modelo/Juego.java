@@ -25,6 +25,10 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import views.BarcoView;
+import views.CargaView;
+import views.EstadoJuegoView;
+import views.SubmarinoView;
 
 public class Juego {
     
@@ -257,6 +261,38 @@ public class Juego {
         submarino.moverY(10, altoPantalla, altoSubmarino);
     }
 
+    //view:
+    public SubmarinoView getSubmarinoView() {
+        return new SubmarinoView((int) submarino.getPosX(),(int) submarino.getPosY(),80,40);
 
 
+    }
+    public List<BarcoView> getBarcosView() 
+    {
+        List<BarcoView> views = new ArrayList<>();
+
+        for (Barco b : barcosActivos) 
+            {
+                views.add(new BarcoView((int) b.getPosX(),(int) b.getPosY(),120,60,false));
+            }
+
+        return views;
+    }
+    public List<CargaView> getCargasView() 
+    {
+        List<CargaView> views = new ArrayList<>();
+
+        for (Carga c : cargasActivas)
+            {
+                views.add(new CargaView((int) c.getPosX(),(int) c.getPosY(), 60,60,c.isExplotando()));
+            }
+
+        return views;
+    }
+    public EstadoJuegoView getEstadoJuegoView() 
+    {
+        return new EstadoJuegoView(submarino.getVida(),submarino.getPuntaje(),submarino.getVidas(),nivelActual,submarino.estaMuerto());
+    }
+
+    
 }

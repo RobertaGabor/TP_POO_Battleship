@@ -1,9 +1,10 @@
 package gui;
 import controlador.Controlador;
 
-import views.EstadoJuego;
-import views.MovibleView;
-
+import views.EstadoJuegoView;
+import views.SubmarinoView;
+import views.BarcoView;
+import views.CargaView;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -272,7 +273,7 @@ public class Ventana extends JFrame{
     // según su estado actual en el juego.
     private void actualizarPantalla()
     {
-       MovibleView subView = controlador.getSubmarinoViews();
+       SubmarinoView subView = controlador.getSubmarinoView();
         submarino.setLocation((int)subView.getX(), (int)subView.getY());
 
         actualizarBarcos();
@@ -283,7 +284,7 @@ public class Ventana extends JFrame{
         repaint();
     }
     private void verificarGameOver() {
-         EstadoJuego estado = controlador.getEstadoJuegoView();
+         EstadoJuegoView estado = controlador.getEstadoJuegoView();
         
         if(estado.isEstaMuerto()) {
             timer.stop();
@@ -292,7 +293,7 @@ public class Ventana extends JFrame{
     }
 
     private void verificarCambioNivel() {
-          EstadoJuego estado = controlador.getEstadoJuegoView();
+          EstadoJuegoView estado = controlador.getEstadoJuegoView();
         int nivelActual = estado.getNivelActual();
 
         if(nivelActual > nivelAnterior) {
@@ -307,7 +308,7 @@ public class Ventana extends JFrame{
         labelsBarcos.clear();
         
         // Recorremos las Vistas, no los objetos de negocio
-        for(MovibleView barcoView : controlador.getBarcosView()){
+        for(BarcoView barcoView : controlador.getBarcosView()){
 
             JLabel label = new JLabel(barcoImagen);
 
@@ -329,7 +330,7 @@ public class Ventana extends JFrame{
         eliminarCargas();
     labelsCargas.clear();
 
-    for(MovibleView cargaView : controlador.getCargasView())
+    for(CargaView cargaView : controlador.getCargasView())
     {
         if(!cargaView.isExplotando())
         {
@@ -358,7 +359,7 @@ public class Ventana extends JFrame{
     }
      private void actualizarHUD()
     {
-       EstadoJuego estado = controlador.getEstadoJuegoView();
+       EstadoJuegoView estado = controlador.getEstadoJuegoView();
 
         barraVida.setValue((int) estado.getVida());
         labelPuntos.setText("Puntos: " + estado.getPuntaje());

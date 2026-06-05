@@ -1,13 +1,14 @@
 package test;
 import controlador.Controlador;
-import views.EstadoJuego;
-import views.MovibleView;
+import views.EstadoJuegoView;
+import views.SubmarinoView;
 
 public class TestControlador {
     public static void main(String[] args) {
         System.out.println("Iniciando prueba del Controlador: ");
-        Controlador controlador = new Controlador();
-         MovibleView subInicial = controlador.getSubmarinoViews();
+        Controlador controlador = Controlador.getInstance();
+        controlador.iniciarPartida();
+         SubmarinoView subInicial = Controlador.getInstance().getSubmarinoView();
 
         System.out.println("Posición inicial submarino:");
         System.out.println("X: " + subInicial.getX());
@@ -15,21 +16,20 @@ public class TestControlador {
 
         controlador.moverDerecha();
 
-        MovibleView subDerecha = controlador.getSubmarinoViews();
-
+        SubmarinoView subDerecha = controlador.getSubmarinoView();
         System.out.println("Después de mover derecha:");
         System.out.println("X: " + subDerecha.getX());
         System.out.println("Y: " + subDerecha.getY());
 
         if(subDerecha.getX() > subInicial.getX()) {
-            System.out.println("OK: El submarino se movió a la derecha");
+            System.out.println("El submarino se movió a la derecha");
         } else {
-            System.out.println("ERROR: El submarino no se movió a la derecha");
+            System.out.println("El submarino no se movió a la derecha");
         }
 
         controlador.moverIzquierda();
 
-        MovibleView subIzquierda = controlador.getSubmarinoViews();
+        SubmarinoView subIzquierda = controlador.getSubmarinoView();
 
         System.out.println("Después de mover izquierda:");
         System.out.println("X: " + subIzquierda.getX());
@@ -40,7 +40,7 @@ public class TestControlador {
         System.out.println("Cantidad de barcos: " + controlador.getBarcosView().size());
         System.out.println("Cantidad de cargas: " + controlador.getCargasView().size());
 
-        EstadoJuego estado = controlador.getEstadoJuegoView();
+        EstadoJuegoView estado = controlador.getEstadoJuegoView();
 
         System.out.println("Vida: " + estado.getVida());
         System.out.println("Puntos: " + estado.getPuntaje());

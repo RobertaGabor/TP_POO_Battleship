@@ -1,13 +1,13 @@
 package views;
 
-public class EstadoJuego {
+public class EstadoJuegoView {
     private float vida;
     private float puntaje;
     private int vidasRestantes;
     private int nivelActual;
     private boolean estaMuerto;
     
-    public EstadoJuego(float vida, float puntaje, int vidasRestantes, int nivelActual, boolean estaMuerto) {
+    public EstadoJuegoView(float vida, float puntaje, int vidasRestantes, int nivelActual, boolean estaMuerto) {
         this.vida = vida;
         this.puntaje = puntaje;
         this.vidasRestantes = vidasRestantes;
