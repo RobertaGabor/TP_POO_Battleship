@@ -27,6 +27,7 @@ package modelo;
 
 
 import java.util.Random;
+import views.BarcoView;
 
 
 public class Barco {
@@ -102,6 +103,12 @@ public class Barco {
     public int getDireccion()
     {
     	return this.direccion;
+    }
+    // view
+   
+
+    public BarcoView getView() {
+        return new BarcoView((int) posX,(int) posY,120,60);
     }
    
 }

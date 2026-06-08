@@ -21,6 +21,7 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 */
 package modelo;
 import java.util.Random;
+import views.CargaView;
 
 public class Carga {
     
@@ -84,6 +85,11 @@ public class Carga {
     public int getTiempoExplosion()
     {
         return tiempoExplosion;
+    }
+    //view
+    public CargaView getView() 
+    {
+        return new CargaView((int) posX,(int) posY,60,60,exploto);
     }
 
 }

@@ -317,6 +317,8 @@ public class Ventana extends JFrame{
             labelsBarcos.add(label);
         }
         getContentPane().setComponentZOrder(fondoLabel, getContentPane().getComponentCount() - 1);
+        revalidate();
+        repaint();
    
     }
     private void eliminarBarcos() {

@@ -262,10 +262,9 @@ public class Juego {
     }
 
     //view:
-    public SubmarinoView getSubmarinoView() {
-        return new SubmarinoView((int) submarino.getPosX(),(int) submarino.getPosY(),80,40);
-
-
+    public SubmarinoView getSubmarinoView() 
+    {
+    return submarino.getView();
     }
     public List<BarcoView> getBarcosView() 
     {
@@ -273,7 +272,7 @@ public class Juego {
 
         for (Barco b : barcosActivos) 
             {
-                views.add(new BarcoView((int) b.getPosX(),(int) b.getPosY(),120,60));
+                views.add(b.getView());
             }
 
         return views;
@@ -284,7 +283,7 @@ public class Juego {
 
         for (Carga c : cargasActivas)
             {
-                views.add(new CargaView((int) c.getPosX(),(int) c.getPosY(), 60,60,c.isExplotando()));
+                views.add(c.getView());
             }
 
         return views;

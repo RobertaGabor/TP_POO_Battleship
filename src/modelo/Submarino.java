@@ -22,6 +22,9 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 package modelo;
 
+import views.SubmarinoView;
+
+
 public class Submarino {
 
     private float posX;
@@ -154,6 +157,11 @@ public class Submarino {
     {
         return vidas <= 0;
     };
+    //view
+   
+    public SubmarinoView getView() {
+        return new SubmarinoView((int) getPosX(),(int) getPosY(),80,40);
+    }
     
     
 
