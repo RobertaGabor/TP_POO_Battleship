@@ -183,6 +183,7 @@ public class Juego {
             submarino.perderVida(); // Explota a menos de 10 metros de distancia: El jugador no obtiene puntos y pierde 1 vida.
         }
     };
+
     public void verificarFinNivel()
     {
     	if (barcosPendientes == 0 && barcosActivos.isEmpty() && cargasActivas.isEmpty()) {
@@ -192,6 +193,7 @@ public class Juego {
 
         }
     };
+
     public void incrementarNivel()
     {
     	this.nivelActual++;
@@ -204,16 +206,7 @@ public class Juego {
         this.barcosPendientes = 12;
         System.out.println("¡Subiste de Nivel a " + nivelActual + "!");
     };
-    
-    public boolean isEnPartida() 
-    {
-        return this.enPartida;
-    }
-    // utilizo este getSubmarino para poder acceder al submarino desde el controlador y mostrar su estado en pantalla
-    public Submarino getSubmarino()
-    {
-    return submarino;
-    }
+
     public void pausarJuego()
     {
     pausado = true;
@@ -225,23 +218,7 @@ public class Juego {
         System.out.println("Juego reanudado.");
     }
     //
-    public List<Barco> getBarcosActivos()
-    {
-    return barcosActivos;
-    }
-    public List<Carga> getCargasActivas()
-    {
-    return cargasActivas;
-    }
-    public boolean isPausado()
-    {
-    return pausado;
-    }
-    public int getNivelActual()
-    {
-        return nivelActual;
-    }
-    public void moverSubmarinoIzquierda(int anchoPantalla, int anchoSubmarino) 
+    public void moverSubmarinoIzquierda(int anchoPantalla, int anchoSubmarino)
     {
         submarino.moverX(-10, anchoPantalla, anchoSubmarino);
     }

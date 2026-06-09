@@ -62,14 +62,6 @@ import views.SubmarinoView;
 
 
     };
-    public int obtenerAnchoPantalla()
-    {
-    	return anchoPantalla;
-    };
-    public int obtenerAltoPantalla()
-    {
-    	return altoPantalla;
-   };
      public void pausarJuego()
      {
         juego.pausarJuego();
@@ -102,12 +94,12 @@ import views.SubmarinoView;
 
     public void moverArriba()
     {
-        juego.moverSubmarinoArriba(obtenerAltoPantalla(), 100);
+        juego.moverSubmarinoArriba(altoPantalla, 100);
     }
 
     public void moverAbajo()
     {
-        juego.moverSubmarinoAbajo(obtenerAltoPantalla(), 100);
+        juego.moverSubmarinoAbajo(altoPantalla, 100);
     }
     
 

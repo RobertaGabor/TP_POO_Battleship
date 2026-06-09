@@ -25,7 +25,6 @@ import java.awt.image.BufferedImage;
 
 public class Ventana extends JFrame{
     private Controlador controlador;
-    private JLabel label;
     private JLabel submarino;
     private Timer timer;
     private List<JLabel> labelsBarcos;
@@ -40,7 +39,6 @@ public class Ventana extends JFrame{
     private ImageIcon barcoImagen;
     private ImageIcon cargaImagen;
     private ImageIcon explosionImagen;
-    private ImageIcon submarinoImagen;
     private ImageIcon fondoImagen;
     private List<String> explosionesMostradas;
     private ImageIcon submarinoIzquierdo;
