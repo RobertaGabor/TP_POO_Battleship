@@ -60,6 +60,7 @@ public class Ventana extends JFrame{
         requestFocus();
         controlador.iniciarPartida();
     }
+    
 
     private void eventos() {
         //SetDefaultCloseOperation lo utilizo para especificar la acción que se debe realizar 
@@ -111,6 +112,7 @@ public class Ventana extends JFrame{
                                 // mostrará en el JLabel.
                                 submarino.setIcon(submarinoDerecha);
                                 mirandoDerecha = true;
+                                
                             }
 
 

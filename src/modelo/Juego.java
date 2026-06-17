@@ -40,7 +40,9 @@ public class Juego {
     private float velocidadMovimiento;
     private boolean enPartida;
     private boolean pausado;
-
+    private static final int anchoPantalla=1024;
+    private static final int altoPantalla=768;
+   
     public Juego() {
         this.submarino = new Submarino(100.0f, 300.0f); 
         this.barcosActivos = new ArrayList<>();
@@ -50,6 +52,8 @@ public class Juego {
         this.barcosPendientes = 12; // Los barcos están organizados en series de 12 por nivel
         this.enPartida = false;
         this.pausado = false;
+        //this.anchoPantalla = 1024; 
+        //this.altoPantalla = 768; 
     }
     
     public void iniciarPartida() {
@@ -58,8 +62,17 @@ public class Juego {
         this.enPartida = true;
         
     }
+    public static int altoPantalla(){
 
-    public void actualizarJuego(int anchoPantalla)
+        return altoPantalla;
+    }
+
+    public static int anchoPantalla(){
+
+        return anchoPantalla;
+    }
+
+    public void actualizarJuego()
     {
         if (!enPartida) {
             return;
@@ -68,7 +81,7 @@ public class Juego {
             System.out.println("El juego esta pausado.");
             return;
         }
-        verificarGeneracionBarco(anchoPantalla);
+        verificarGeneracionBarco();
         
         // SECCION BARCO: reviso barcos que hayan entrado a la pantalla
         Iterator<Barco> itBarcos = barcosActivos.iterator();
@@ -79,12 +92,12 @@ public class Juego {
             barcoActual.avanzar();
         
             // Si el barco ya se fue de pantalla, lo eliminamos usando el ITERADOR
-            if (!barcoActual.verificarLimites(anchoPantalla)) {
+            if (!barcoActual.verificarLimites()) {
                 itBarcos.remove(); 
                 System.out.println("EL BARCO SE PASO YA SE FUE");
             } else {
                 // Solo revisamos si lanza carga si el barco sigue existiendo
-                if(barcoActual.verificarLanzamientoCarga(anchoPantalla)) {
+                if(barcoActual.verificarLanzamientoCarga()) {
                     Carga soltada = barcoActual.soltarCarga();
                     agregarCarga(soltada); 
                     System.out.println("EL BARCO SOLTO LA CARGA");
@@ -94,46 +107,48 @@ public class Juego {
         
         // SECCION CARGAS: reviso cargas que esten cayendo
         Iterator<Carga> itCargas = cargasActivas.iterator();
-        while (itCargas.hasNext()) {
-           Carga cargaActual = itCargas.next();
+        //hasNext devuelve true si hay un siguiente elemento en la lista, lo que significa que aún no hemos llegado al final de la lista. Si devuelve false, significa que hemos iterado a través de todos los elementos de la lista.
+        while (itCargas.hasNext()) 
+            {
+                Carga cargaActual = itCargas.next();
 
-    if (!cargaActual.isExplotando()) {
+                if (!cargaActual.isExplotando())  
+                    {
+                        cargaActual.caer();
+                        if (cargaActual.verificarDetonacion()) 
+                            {
+                                procesarExplosion(cargaActual);
+                                System.out.println("LA CARGA YA EXPLOTO");
+                            }
 
-        cargaActual.caer();
-
-        if (cargaActual.verificarDetonacion()) {
-            procesarExplosion(cargaActual);
-            System.out.println("LA CARGA YA EXPLOTO");
-        }
-
-    } else {
-
-        System.out.println("LA CARGA SIGUE EXPLOTANDO");
-
-        cargaActual.incrementarTiempoExplosion();
-
-        if (cargaActual.getTiempoExplosion() >= 4) {
-            System.out.println("SE ELIMINO LA CARGA EXPLOTADA");
-            itCargas.remove();
-        }
-    }
+                    } 
+                    else 
+                        {
+                            System.out.println("LA CARGA SIGUE EXPLOTADA");
+                            cargaActual.incrementarTiempoExplosion();
+                            if (cargaActual.getTiempoExplosion() >= 4) 
+                                {
+                                    System.out.println("SE ELIMINO LA CARGA EXPLOTADA");
+                                    itCargas.remove();
+                                }
+                        }
           
-        }       
+            }       
         
         // Check si quedan barcos etc para ver si subir y reiniciar
         verificarFinNivel(); 
     }
     
     
-    public void verificarGeneracionBarco(int anchoPantalla)
+    public void verificarGeneracionBarco()
     {
-    	if (barcosActivos.size() < 3 && barcosPendientes > 0 && hayEspacioLibre(anchoPantalla)) {
-            Barco nuevoBarco = new Barco(velocidadMovimiento, anchoPantalla);
+    	if (barcosActivos.size() < 3 && barcosPendientes > 0 && hayEspacioLibre()) {
+            Barco nuevoBarco = new Barco(velocidadMovimiento);
             agregarBarco(nuevoBarco);
         }
     };
     
-    public boolean hayEspacioLibre(int anchoPantalla) {        
+    public boolean hayEspacioLibre() {        
         if (barcosActivos.isEmpty()) {
             return true; //si no se envio nada que mande
         }
@@ -146,7 +161,8 @@ public class Juego {
         //chequeamos que ese barco haya salido de esa zona de pegote
 
         if (ultimoBarco.getPosX() < margenSeguridad || 
-            ultimoBarco.getPosX() > (anchoPantalla - margenSeguridad)) {
+            ultimoBarco.getPosX() > (anchoPantalla - margenSeguridad))
+             {
             return false; //esta muyy cerca, se van a pegar los barcos visualmente
         }
         
@@ -180,6 +196,7 @@ public class Juego {
         } else if (distancia >= 10 && distancia < 50) {
             submarino.recibirDanio(50); // Explota entre 10 y 50 metros de distancia: El jugador no obtiene puntos y recibe un daño de 50% de una de sus vidas.
         } else {
+            //verificar
             submarino.perderVida(); // Explota a menos de 10 metros de distancia: El jugador no obtiene puntos y pierde 1 vida.
         }
     };
@@ -241,24 +258,24 @@ public class Juego {
     {
         return nivelActual;
     }
-    public void moverSubmarinoIzquierda(int anchoPantalla, int anchoSubmarino) 
+    public void moverSubmarinoIzquierda(int anchoSubmarino) 
     {
-        submarino.moverX(-10, anchoPantalla, anchoSubmarino);
+        submarino.moverX(-10, anchoSubmarino);
     }
 
-    public void moverSubmarinoDerecha(int anchoPantalla, int anchoSubmarino) 
+    public void moverSubmarinoDerecha(int anchoSubmarino) 
     {
-        submarino.moverX(10, anchoPantalla, anchoSubmarino);
+        submarino.moverX(10, anchoSubmarino);
     }
 
-    public void moverSubmarinoArriba(int altoPantalla, int altoSubmarino) 
+    public void moverSubmarinoArriba(int altoSubmarino) 
     {
-        submarino.moverY(-10, altoPantalla, altoSubmarino);
+        submarino.moverY(-10, altoSubmarino);
     }
 
-    public void moverSubmarinoAbajo(int altoPantalla, int altoSubmarino) 
+    public void moverSubmarinoAbajo(int altoSubmarino) 
     {
-        submarino.moverY(10, altoPantalla, altoSubmarino);
+        submarino.moverY(10, altoSubmarino);
     }
 
     //view:

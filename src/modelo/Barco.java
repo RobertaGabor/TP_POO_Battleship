@@ -24,8 +24,6 @@ Mantengamos una comunicación fluida para evitar conflictos en la integración d
 
 package modelo;
 
-
-
 import java.util.Random;
 import views.BarcoView;
 
@@ -38,16 +36,16 @@ public class Barco {
     private int direccion;
     private Random random;
     
-    public Barco(float velocidad, int anchoPantalla)
+    public Barco(float velocidad)
     {
     	this.velocidad=velocidad;
-        this.posY = 0.0f; 
+        this.posY = 60; 
         this.random = new Random();
         if (random.nextBoolean()) {
-            this.posX = 0.0f;
+            this.posX = -120;
             this.direccion = 1; // Se mueve hacia la derecha (+)
         } else {
-            this.posX = anchoPantalla;
+            this.posX = Juego.anchoPantalla() + 120;
             this.direccion = -1; // Se mueve hacia la izquierda (-)
         }
        
@@ -61,20 +59,22 @@ public class Barco {
 
     };
 
-    public boolean verificarLimites(int anchoPantalla)
+    public boolean verificarLimites()
     {
-        //Verifico si la posicion esta dentro de los parametros.
-        if (posX < 0 || posX > anchoPantalla) {
-            return false; // El barco ha salido de los límites
+         int anchoBarco = 120;
+
+        if (direccion == 1) {
+            // Viene desde la izquierda y va a la derecha
+            return posX <= Juego.anchoPantalla();
+        } else {
+            // Viene desde la derecha y va a la izquierda
+            return posX + anchoBarco >= 0;
         }
-
-        return true;
     }
-    public boolean verificarLanzamientoCarga(int anchoPantalla)
+    public boolean verificarLanzamientoCarga()
     {
-        if(verificarLimites(anchoPantalla)) {
-
-        //Utilizo random para que haya una probabilidad del 2% de lanzar una carga.
+        if(verificarLimites()) {
+        //Utilizo random para que haya una probabilidad del 5% de lanzar una carga.
         return random.nextInt(100) < 5;
     }
     	return  false;       

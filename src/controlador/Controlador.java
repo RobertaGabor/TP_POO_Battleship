@@ -31,8 +31,7 @@ import views.SubmarinoView;
 
  public class Controlador {
     private Juego juego;
-    private int anchoPantalla;
-    private int altoPantalla;
+    
     private static Controlador instance;
     
 
@@ -40,16 +39,13 @@ import views.SubmarinoView;
     {
     
         this.juego = new Juego();
-        this.anchoPantalla = 1024; 
-        this.altoPantalla = 768; 
+       
     };
 
     public void iniciarPartida()
     {
         juego.iniciarPartida();
-        // El bucle principal del juego
-       
-        }
+    }
 
 
 
@@ -57,19 +53,11 @@ import views.SubmarinoView;
     public void actualizarJuego()
     {
         
-        // Este método se encarga de actualizar el estado del juego.
-    	juego.actualizarJuego(anchoPantalla);
+    	juego.actualizarJuego();
 
 
     };
-    public int obtenerAnchoPantalla()
-    {
-    	return anchoPantalla;
-    };
-    public int obtenerAltoPantalla()
-    {
-    	return altoPantalla;
-   };
+    
      public void pausarJuego()
      {
         juego.pausarJuego();
@@ -92,22 +80,22 @@ import views.SubmarinoView;
     // Agregar métodos para mover el submarino
     public void moverIzquierda()
     {
-       juego.moverSubmarinoIzquierda(anchoPantalla, 120);
+       juego.moverSubmarinoIzquierda(120);
     }
 
     public void moverDerecha()
     {
-        juego.moverSubmarinoDerecha(anchoPantalla, 120);
+        juego.moverSubmarinoDerecha(120);
     }
 
     public void moverArriba()
     {
-        juego.moverSubmarinoArriba(obtenerAltoPantalla(), 100);
+        juego.moverSubmarinoArriba( 100);
     }
 
     public void moverAbajo()
     {
-        juego.moverSubmarinoAbajo(obtenerAltoPantalla(), 100);
+        juego.moverSubmarinoAbajo(100);
     }
     
 

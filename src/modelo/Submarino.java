@@ -25,6 +25,7 @@ package modelo;
 import views.SubmarinoView;
 
 
+
 public class Submarino {
 
     private float posX;
@@ -57,8 +58,11 @@ public class Submarino {
         this.puntaje = PUNTAJE_INICIAL;
         this.puntosParaSiguienteVidaExtra = OBJETIVO_PUNTOS_VIDA_EXTRA;
     }
-    public void moverX(int dx, int anchoPantalla, int anchoSubmarino) {
+    public void moverX(int dx, int anchoSubmarino) {
         float nuevaPosX = posX + dx;
+
+        
+        int anchoPantalla = Juego.anchoPantalla(); 
 
         if (nuevaPosX < 0) {
             posX = 0;
@@ -69,7 +73,7 @@ public class Submarino {
     }
     }
 
-    public void moverY(int dy, int altoPantalla, int altoSubmarino) {
+    public void moverY(int dy, int altoSubmarino) {
 
         float nuevaPosY = posY + dy;
 
@@ -77,9 +81,9 @@ public class Submarino {
             {
                 posY = LIMITE_SUPERIOR_Y;
             } 
-        else if (nuevaPosY > altoPantalla - altoSubmarino)  
+        else if (nuevaPosY > Juego.altoPantalla() - altoSubmarino)  
             {
-                posY = altoPantalla - altoSubmarino;
+                posY = Juego.altoPantalla() - altoSubmarino;
             } 
         else 
             {

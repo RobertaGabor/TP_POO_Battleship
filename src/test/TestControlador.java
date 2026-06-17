@@ -7,27 +7,27 @@ import views.SubmarinoView;
 
 public class TestControlador {
     public static void main(String[] args) {
-       Controlador controlador = Controlador.getInstance();
-        controlador.iniciarPartida();
+    
+        Controlador.getInstance().iniciarPartida();
 
         
         System.out.println("    Juego en consola       ");
         
 
-        for (int turno = 1; turno <= 80; turno++) {
+        for (int turno = 1; turno <= 12; turno++) {
 
             System.out.println("\n========== TURNO " + turno + " ==========");
 
-            moverSubmarinoAutomaticamente(controlador, turno);
+            moverSubmarinoAutomaticamente(turno);
 
-            controlador.actualizarJuego();
+            Controlador.getInstance().actualizarJuego();
 
-            mostrarSubmarino(controlador);
-            mostrarBarcos(controlador);
-            mostrarCargas(controlador);
-            mostrarEstado(controlador);
+            mostrarSubmarino();
+            mostrarBarcos();
+            mostrarCargas();
+            mostrarEstado();
 
-            EstadoJuegoView estado = controlador.getEstadoJuegoView();
+            EstadoJuegoView estado = Controlador.getInstance().getEstadoJuegoView();
 
             if (estado.isEstaMuerto()) {
                 System.out.println("\nGAME OVER");
@@ -44,39 +44,39 @@ public class TestControlador {
         System.out.println("\nFIN DE LA SIMULACION");
     }
 
-    private static void moverSubmarinoAutomaticamente(Controlador controlador, int turno) {
+    private static void moverSubmarinoAutomaticamente(int turno) {
 
         if (turno % 4 == 0) {
-            controlador.moverDerecha();
+            Controlador.getInstance().moverDerecha();
             System.out.println("Accion: el submarino se mueve a la derecha");
         } else if (turno % 6 == 0) {
-            controlador.moverIzquierda();
+            Controlador.getInstance().moverIzquierda();
             System.out.println("Accion: el submarino se mueve a la izquierda");
         } else if (turno % 5 == 0) {
-            controlador.moverArriba();
+            Controlador.getInstance().moverArriba();
             System.out.println("Accion: el submarino sube");
         } else if (turno % 7 == 0) {
-            controlador.moverAbajo();
+            Controlador.getInstance().moverAbajo();
             System.out.println("Accion: el submarino baja");
         } else {
             System.out.println("Accion: el submarino queda quieto");
         }
     }
 
-    private static void mostrarSubmarino(Controlador controlador) {
-        SubmarinoView sub = controlador.getSubmarinoView();
+    private static void mostrarSubmarino() {
+        SubmarinoView sub = Controlador.getInstance().getSubmarinoView();
 
         System.out.println("\nSubmarino");
         System.out.println("X: " + sub.getX());
         System.out.println("Y: " + sub.getY());
     }
 
-    private static void mostrarBarcos(Controlador controlador) {
-        System.out.println("\nBarcos activos: " + controlador.getBarcosView().size());
+    private static void mostrarBarcos() {
+        System.out.println("\nBarcos activos: " + Controlador.getInstance().getBarcosView().size());
 
         int numero = 1;
 
-        for (BarcoView barco : controlador.getBarcosView()) {
+        for (BarcoView barco : Controlador.getInstance().getBarcosView()) {
             System.out.println(
                 "Barco " + numero +
                 " | X: " + barco.getX() +
@@ -87,34 +87,32 @@ public class TestControlador {
         }
     }
 
-    private static void mostrarCargas(Controlador controlador) {
-        System.out.println("\nCargas activas: " + controlador.getCargasView().size());
+    private static void mostrarCargas() {
+        System.out.println("\nCargas activas: " + Controlador.getInstance().getCargasView().size());
 
         int numero = 1;
 
-        for (CargaView carga : controlador.getCargasView()) {
+        for (CargaView carga : Controlador.getInstance().getCargasView()) 
+            {
 
-            String estadoCarga;
+                String estadoCarga;
 
-            if (carga.isExplotando()) {
-                estadoCarga = "EXPLOTANDO";
-            } else {
-                estadoCarga = "CAYENDO";
+                if (carga.isExplotando()) 
+                    {
+                        estadoCarga = "EXPLOTANDO";
+                    } 
+                else 
+                    {
+                        estadoCarga = "CAYENDO";
+                    }
+
+                System.out.println("Carga " + numero +" | X: " + carga.getX() +" | Y: " + carga.getY() +" | Estado: " + estadoCarga);
+                numero++;
             }
-
-            System.out.println(
-                "Carga " + numero +
-                " | X: " + carga.getX() +
-                " | Y: " + carga.getY() +
-                " | Estado: " + estadoCarga
-            );
-
-            numero++;
-        }
     }
 
-    private static void mostrarEstado(Controlador controlador) {
-        EstadoJuegoView estado = controlador.getEstadoJuegoView();
+    private static void mostrarEstado() {
+        EstadoJuegoView estado = Controlador.getInstance().getEstadoJuegoView();
 
         System.out.println("\nEstado del juego");
         System.out.println("Vida: " + estado.getVida());
