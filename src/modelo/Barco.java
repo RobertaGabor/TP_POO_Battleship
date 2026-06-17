@@ -91,19 +91,7 @@ public class Barco {
     {
     	return this.posX;
     }
-    public float getPosY()
-    {
-    	return this.posY;
-    }
-    public float getVelocidad()
-    {
-    	return this.velocidad;
-        
-    }
-    public int getDireccion()
-    {
-    	return this.direccion;
-    }
+
     // view
    
 

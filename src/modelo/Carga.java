@@ -32,7 +32,6 @@ public class Carga {
     private static final float LIMITE_SUPERIOR_Y = 300.0f;
     private static final float LIMITE_INFERIOR_Y = 800.0f;
     private boolean exploto = false;
-    private boolean explosionMostrada = false;
     private Random rand;
     private int tiempoExplosion = 0;
 
@@ -70,13 +69,7 @@ public class Carga {
     {
         return exploto;
     }
-    public boolean isExplosionMostrada() {
-        return explosionMostrada;
-    }
 
-    public void marcarExplosionMostrada() {
-        explosionMostrada = true;
-    }
     public void incrementarTiempoExplosion()
     {
     tiempoExplosion++;
