@@ -5,6 +5,10 @@ public class SubmarinoView {
     private int y;
     private int ancho;
     private int alto;
+    
+    public SubmarinoView() {
+        
+    }
 
     public SubmarinoView(int x, int y, int ancho, int alto) {
         this.x = x;
@@ -16,5 +20,8 @@ public class SubmarinoView {
 
     public int getX() { return x; }
     public int getY() { return y; }
+    public int getAncho() { return ancho; }   
+    public int getAlto() { return alto; }  
+  
 
 }

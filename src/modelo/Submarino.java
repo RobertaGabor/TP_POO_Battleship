@@ -43,6 +43,8 @@ public class Submarino {
     private static final float LIMITE_INFERIOR_Y = 740.0f;
     // Objetivo de puntos para ganar una vida extra
     private static final int OBJETIVO_PUNTOS_VIDA_EXTRA = 500;
+    private static final int ALTOSUBMARINO=60;
+    private static final int ANCHOSUBMARINO=120;
 
 
     public Submarino(float posX, float posY) {
@@ -58,7 +60,7 @@ public class Submarino {
         this.puntaje = PUNTAJE_INICIAL;
         this.puntosParaSiguienteVidaExtra = OBJETIVO_PUNTOS_VIDA_EXTRA;
     }
-    public void moverX(int dx, int anchoSubmarino) {
+    public void moverX(int dx) {
         float nuevaPosX = posX + dx;
 
         
@@ -66,14 +68,14 @@ public class Submarino {
 
         if (nuevaPosX < 0) {
             posX = 0;
-        } else if (nuevaPosX > anchoPantalla - anchoSubmarino) {
-            posX = anchoPantalla - anchoSubmarino;
+        } else if (nuevaPosX > anchoPantalla - ANCHOSUBMARINO) {
+            posX = anchoPantalla - ANCHOSUBMARINO;
         } else {
             posX = nuevaPosX;
     }
     }
 
-    public void moverY(int dy, int altoSubmarino) {
+    public void moverY(int dy) {
 
         float nuevaPosY = posY + dy;
 
@@ -81,9 +83,9 @@ public class Submarino {
             {
                 posY = LIMITE_SUPERIOR_Y;
             } 
-        else if (nuevaPosY > Juego.altoPantalla() - altoSubmarino)  
+        else if (nuevaPosY > Juego.altoPantalla() - ALTOSUBMARINO)  
             {
-                posY = Juego.altoPantalla() - altoSubmarino;
+                posY = Juego.altoPantalla() - ALTOSUBMARINO;
             } 
         else 
             {
@@ -164,7 +166,7 @@ public class Submarino {
     //view
    
     public SubmarinoView getView() {
-        return new SubmarinoView((int) getPosX(),(int) getPosY(),80,40);
+        return new SubmarinoView((int) posX,(int)posY,ANCHOSUBMARINO,ALTOSUBMARINO);
     }
     
     

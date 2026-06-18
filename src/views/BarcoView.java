@@ -7,6 +7,10 @@ public class BarcoView {
     private int alto;
     
     
+    public BarcoView() {
+        
+    }
+    
     public BarcoView(int x, int y, int ancho, int alto) {
         this.x = x;
         this.y = y;
@@ -15,7 +19,11 @@ public class BarcoView {
         
     }
    
-
+    public BarcoView(int ancho, int alto) {
+        this.ancho = ancho;
+        this.alto = alto;
+        
+    }
 
 
     public int getX() { return x; }

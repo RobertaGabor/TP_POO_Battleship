@@ -32,6 +32,8 @@ public class Carga {
     private static final float LIMITE_SUPERIOR_Y = 300.0f;
     private static final float LIMITE_INFERIOR_Y = 800.0f;
     private boolean exploto = false;
+    private static final int ALTOCARGA=60;
+    private static final int ANCHOCARGA=60;
     private Random rand;
     private int tiempoExplosion = 0;
 
@@ -82,7 +84,12 @@ public class Carga {
     //view
     public CargaView getView() 
     {
-        return new CargaView((int) posX,(int) posY,60,60,exploto);
+        return new CargaView((int) posX,(int) posY,ANCHOCARGA,ALTOCARGA,exploto);
+    }
+    
+    public CargaView getViewSize() 
+    {
+        return new CargaView(ANCHOCARGA,ALTOCARGA);
     }
 
 }
