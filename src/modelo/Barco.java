@@ -35,6 +35,8 @@ public class Barco {
     private float velocidad;
     private int direccion;
     private Random random;
+    private static final int ALTOBARCO=60;
+    private static final int ANCHOBARCO=120;
     
     public Barco(float velocidad)
     {
@@ -42,10 +44,10 @@ public class Barco {
         this.posY = 60; 
         this.random = new Random();
         if (random.nextBoolean()) {
-            this.posX = -120;
+            this.posX = -(ANCHOBARCO);
             this.direccion = 1; // Se mueve hacia la derecha (+)
         } else {
-            this.posX = Juego.anchoPantalla() + 120;
+            this.posX = Juego.anchoPantalla() + ANCHOBARCO;
             this.direccion = -1; // Se mueve hacia la izquierda (-)
         }
        
@@ -61,14 +63,13 @@ public class Barco {
 
     public boolean verificarLimites()
     {
-         int anchoBarco = 120;
 
         if (direccion == 1) {
             // Viene desde la izquierda y va a la derecha
-            return posX <= Juego.anchoPantalla();
+            return posX <= Juego.anchoPantalla() + ANCHOBARCO;
         } else {
             // Viene desde la derecha y va a la izquierda
-            return posX + anchoBarco >= 0;
+            return posX + ANCHOBARCO >= 0;
         }
     }
     public boolean verificarLanzamientoCarga()
@@ -96,7 +97,10 @@ public class Barco {
    
 
     public BarcoView getView() {
-        return new BarcoView((int) posX,(int) posY,120,60);
+        return new BarcoView((int) posX,(int) posY,ANCHOBARCO,ALTOBARCO);
+    }
+    public BarcoView getViewSize() {
+        return new BarcoView(ANCHOBARCO,ALTOBARCO);
     }
    
 }

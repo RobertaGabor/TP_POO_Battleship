@@ -24,7 +24,6 @@ import java.awt.image.BufferedImage;
 
 
 public class Ventana extends JFrame{
-    private Controlador controlador;
     private JLabel submarino;
     private Timer timer;
     private List<JLabel> labelsBarcos;
@@ -47,16 +46,12 @@ public class Ventana extends JFrame{
 
     public Ventana()
     {
-        controlador = Controlador.getInstance();
         configurar();
-
         inicializar();
-
         eventos();
-
         setVisible(true);
         requestFocus();
-        controlador.iniciarPartida();
+        Controlador.getInstance().iniciarPartida();
     }
     
 
@@ -90,7 +85,7 @@ public class Ventana extends JFrame{
                     case KeyEvent.VK_A:
                     case KeyEvent.VK_LEFT:
 
-                        controlador.moverIzquierda();
+                    	Controlador.getInstance().moverIzquierda();
                         if (mirandoDerecha) 
                             {
                                 submarino.setIcon(submarinoIzquierdo);
@@ -103,7 +98,7 @@ public class Ventana extends JFrame{
                     case KeyEvent.VK_D:
                     
 
-                        controlador.moverDerecha();
+                    	Controlador.getInstance().moverDerecha();
                         if (!mirandoDerecha) 
                             {
                                 //setIcon es un método de JLabel que se utiliza para establecer la imagen que se 
@@ -119,25 +114,25 @@ public class Ventana extends JFrame{
                     case KeyEvent.VK_W:
                     case KeyEvent.VK_UP:
 
-                        controlador.moverArriba();
+                    	Controlador.getInstance().moverArriba();
 
                         break;
 
                     case KeyEvent.VK_S:
                     case KeyEvent.VK_DOWN:
 
-                        controlador.moverAbajo();
+                    	Controlador.getInstance().moverAbajo();
 
                         break;
 
                     case KeyEvent.VK_P:
 
-                        controlador.pausarJuego();
+                    	Controlador.getInstance().pausarJuego();
 
                         break;
                     case KeyEvent.VK_R:
 
-                        controlador.reanudarJuego();
+                    	Controlador.getInstance().reanudarJuego();
 
                         break;
                 }
@@ -160,6 +155,10 @@ public class Ventana extends JFrame{
         labelsCargas = new ArrayList<>();
         labelsExplosiones = new ArrayList<>();
         explosionesMostradas = new ArrayList<>();
+        
+        SubmarinoView subView = Controlador.getInstance().getSubmarinoView();
+        BarcoView barView = Controlador.getInstance().getTamanioBarcoView();
+        CargaView carView = Controlador.getInstance().getTamanioCargaView();
 
         fondoImagen =
         new ImageIcon("src/img/fondo_del_juego.png");
@@ -178,16 +177,16 @@ public class Ventana extends JFrame{
         // ImageIcon es una clase concreta que proporciona una implementación específica de la interfaz Icon, mientras
         barcoImagen = new ImageIcon("src/img/barco.png");
         barcoImagen = new ImageIcon(
-        barcoImagen.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
+        barcoImagen.getImage().getScaledInstance(barView.getAncho(),barView.getAlto(),java.awt.Image.SCALE_SMOOTH));
 
         cargaImagen = new ImageIcon("src/img/carga.png");
-        cargaImagen = new ImageIcon(cargaImagen.getImage().getScaledInstance(60,60,java.awt.Image.SCALE_SMOOTH));
+        cargaImagen = new ImageIcon(cargaImagen.getImage().getScaledInstance(carView.getAncho(),carView.getAlto(),java.awt.Image.SCALE_SMOOTH));
 
         explosionImagen = new ImageIcon("src/img/explosion.png");
         explosionImagen = new ImageIcon(explosionImagen.getImage().getScaledInstance(100,100,java.awt.Image.SCALE_SMOOTH));
 
 
-        submarinoIzquierdo =new ImageIcon(submarinoIzquierdo.getImage().getScaledInstance(120,60,java.awt.Image.SCALE_SMOOTH));
+        submarinoIzquierdo =new ImageIcon(submarinoIzquierdo.getImage().getScaledInstance(subView.getAncho(),subView.getAlto(),java.awt.Image.SCALE_SMOOTH));
         
         submarinoDerecha=invertirImagen(submarinoIzquierdo);
         //submarinoDerecha = new ImageIcon(submarinoIzquierdo.getImage().getScaledInstance(120, 60, java.awt.Image.SCALE_SMOOTH));
@@ -230,7 +229,7 @@ public class Ventana extends JFrame{
          timer= new Timer(150, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.actualizarJuego();
+            	Controlador.getInstance().actualizarJuego();
                 actualizarPantalla();
             }
             
@@ -273,7 +272,7 @@ public class Ventana extends JFrame{
     // según su estado actual en el juego.
     private void actualizarPantalla()
     {
-       SubmarinoView subView = controlador.getSubmarinoView();
+       SubmarinoView subView = Controlador.getInstance().getSubmarinoView();
         submarino.setLocation((int)subView.getX(), (int)subView.getY());
 
         actualizarBarcos();
@@ -284,7 +283,7 @@ public class Ventana extends JFrame{
         repaint();
     }
     private void verificarGameOver() {
-         EstadoJuegoView estado = controlador.getEstadoJuegoView();
+         EstadoJuegoView estado = Controlador.getInstance().getEstadoJuegoView();
         
         if(estado.isEstaMuerto()) {
             timer.stop();
@@ -293,7 +292,7 @@ public class Ventana extends JFrame{
     }
 
     private void verificarCambioNivel() {
-          EstadoJuegoView estado = controlador.getEstadoJuegoView();
+          EstadoJuegoView estado = Controlador.getInstance().getEstadoJuegoView();
         int nivelActual = estado.getNivelActual();
 
         if(nivelActual > nivelAnterior) {
@@ -308,7 +307,7 @@ public class Ventana extends JFrame{
         labelsBarcos.clear();
         
         // Recorremos las Vistas, no los objetos de negocio
-        for(BarcoView barcoView : controlador.getBarcosView()){
+        for(BarcoView barcoView : Controlador.getInstance().getBarcosView()){
 
             JLabel label = new JLabel(barcoImagen);
 
@@ -332,7 +331,7 @@ public class Ventana extends JFrame{
         eliminarCargas();
     labelsCargas.clear();
 
-    for(CargaView cargaView : controlador.getCargasView())
+    for(CargaView cargaView : Controlador.getInstance().getCargasView())
     {
         if(!cargaView.isExplotando())
         {
@@ -361,7 +360,7 @@ public class Ventana extends JFrame{
     }
      private void actualizarHUD()
     {
-       EstadoJuegoView estado = controlador.getEstadoJuegoView();
+       EstadoJuegoView estado = Controlador.getInstance().getEstadoJuegoView();
 
         barraVida.setValue((int) estado.getVida());
         labelPuntos.setText("Puntos: " + estado.getPuntaje());

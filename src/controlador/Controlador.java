@@ -31,7 +31,6 @@ import views.SubmarinoView;
 
  public class Controlador {
     private Juego juego;
-    
     private static Controlador instance;
     
 
@@ -45,9 +44,7 @@ import views.SubmarinoView;
     public void iniciarPartida()
     {
         juego.iniciarPartida();
-    }
-
-
+    };
 
     
     public void actualizarJuego()
@@ -80,22 +77,22 @@ import views.SubmarinoView;
     // Agregar métodos para mover el submarino
     public void moverIzquierda()
     {
-       juego.moverSubmarinoIzquierda(120);
+       juego.moverSubmarinoIzquierda();
     }
 
     public void moverDerecha()
     {
-        juego.moverSubmarinoDerecha(120);
+        juego.moverSubmarinoDerecha();
     }
 
     public void moverArriba()
     {
-        juego.moverSubmarinoArriba( 100);
+        juego.moverSubmarinoArriba();
     }
 
     public void moverAbajo()
     {
-        juego.moverSubmarinoAbajo(100);
+        juego.moverSubmarinoAbajo();
     }
     
 
@@ -104,6 +101,16 @@ import views.SubmarinoView;
     public SubmarinoView getSubmarinoView()
     {
         return juego.getSubmarinoView();
+    }
+    
+    public BarcoView getTamanioBarcoView()
+    {
+        return juego.getTamanioBarcoView();
+    }
+    
+    public CargaView getTamanioCargaView()
+    {
+        return juego.getTamanioCargaView();
     }
     
        public List<BarcoView> getBarcosView() {

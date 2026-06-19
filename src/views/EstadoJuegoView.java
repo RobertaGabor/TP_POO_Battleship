@@ -7,6 +7,11 @@ public class EstadoJuegoView {
     private int nivelActual;
     private boolean estaMuerto;
     
+    public EstadoJuegoView() {
+
+    	
+    }
+    
     public EstadoJuegoView(float vida, float puntaje, int vidasRestantes, int nivelActual, boolean estaMuerto) {
         this.vida = vida;
         this.puntaje = puntaje;

@@ -7,12 +7,21 @@ public class CargaView {
     private int alto;
     private boolean explotando;
     
+    public CargaView() {
+
+    }
+    
     public CargaView(int x, int y, int ancho, int alto, boolean explotando) {
         this.x = x;
         this.y = y;
         this.ancho = ancho;
         this.alto = alto;
         this.explotando = explotando;
+    }
+    
+    public CargaView( int ancho, int alto) {
+        this.ancho = ancho;
+        this.alto = alto;
     }
    
     public int getX() { return x; }

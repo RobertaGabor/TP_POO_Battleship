@@ -40,8 +40,8 @@ public class Juego {
     private float velocidadMovimiento;
     private boolean enPartida;
     private boolean pausado;
-    private static final int anchoPantalla=1024;
-    private static final int altoPantalla=768;
+    private static final int ANCHOPANTALLA=1024;
+    private static final int ALTOPANTALLA=768;
    
     public Juego() {
         this.submarino = new Submarino(100.0f, 300.0f); 
@@ -64,12 +64,12 @@ public class Juego {
     }
     public static int altoPantalla(){
 
-        return altoPantalla;
+        return ALTOPANTALLA;
     }
 
     public static int anchoPantalla(){
 
-        return anchoPantalla;
+        return ANCHOPANTALLA;
     }
 
     public void actualizarJuego()
@@ -161,7 +161,7 @@ public class Juego {
         //chequeamos que ese barco haya salido de esa zona de pegote
 
         if (ultimoBarco.getPosX() < margenSeguridad || 
-            ultimoBarco.getPosX() > (anchoPantalla - margenSeguridad))
+            ultimoBarco.getPosX() > (ANCHOPANTALLA - margenSeguridad))
              {
             return false; //esta muyy cerca, se van a pegar los barcos visualmente
         }
@@ -251,24 +251,24 @@ public class Juego {
     {
         return nivelActual;
     }
-    public void moverSubmarinoIzquierda(int anchoSubmarino) 
+    public void moverSubmarinoIzquierda() 
     {
-        submarino.moverX(-10, anchoSubmarino);
+        submarino.moverX(-10);
     }
 
-    public void moverSubmarinoDerecha(int anchoSubmarino) 
+    public void moverSubmarinoDerecha() 
     {
-        submarino.moverX(10, anchoSubmarino);
+        submarino.moverX(10);
     }
 
-    public void moverSubmarinoArriba(int altoSubmarino) 
+    public void moverSubmarinoArriba() 
     {
-        submarino.moverY(-10, altoSubmarino);
+        submarino.moverY(-10);
     }
 
-    public void moverSubmarinoAbajo(int altoSubmarino) 
+    public void moverSubmarinoAbajo() 
     {
-        submarino.moverY(10, altoSubmarino);
+        submarino.moverY(10);
     }
 
     //view:
@@ -276,6 +276,17 @@ public class Juego {
     {
     return submarino.getView();
     }
+    public BarcoView getTamanioBarcoView() 
+    {
+    	Barco dummy=new Barco(0);
+    return dummy.getViewSize();
+    }
+    public CargaView getTamanioCargaView() 
+    {Carga dummy=new Carga(0,0,0);
+    return dummy.getViewSize();
+    }
+    
+    
     public List<BarcoView> getBarcosView() 
     {
         List<BarcoView> views = new ArrayList<>();
